@@ -1,6 +1,8 @@
 <template>
   <tr>
-    <td class="table-checkbox"></td>
+    <td class="table-checkbox">
+      <CheckboxField />
+    </td>
     <td>Helosdf</td>
     <td>Helosdf</td>
     <td>Helosdf</td>
@@ -15,7 +17,12 @@
 </template>
 
 <script>
-export default {};
+import CheckboxField from "../commons/CheckboxField";
+export default {
+  components: {
+    CheckboxField,
+  },
+};
 </script>
 
 <style scoped>

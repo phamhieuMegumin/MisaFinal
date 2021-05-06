@@ -2,14 +2,35 @@
   <table class="table">
     <thead>
       <tr>
-        <th class="table-head-checkbox"></th>
-        <th class="m-150">Mã nhân viên</th>
-        <th class="m-250">Tên nhân viên</th>
-        <th class="m-250">Chức danh</th>
-        <th class="m-250">Tên đơn vị</th>
-        <th class="m-150">Số tài khoản</th>
-        <th class="m-250">Tên ngân hàng</th>
-        <th class="m-180">Trạng thái</th>
+        <th class="table-head-checkbox"><CheckboxField /></th>
+        <th class="m-150">
+          Mã nhân viên
+          <div class="line"></div>
+        </th>
+        <th class="m-250">
+          Tên nhân viên
+          <div class="line"></div>
+        </th>
+        <th class="m-250">
+          Chức danh
+          <div class="line"></div>
+        </th>
+        <th class="m-250">
+          Tên đơn vị
+          <div class="line"></div>
+        </th>
+        <th class="m-150">
+          Số tài khoản
+          <div class="line"></div>
+        </th>
+        <th class="m-250">
+          Tên ngân hàng
+          <div class="line"></div>
+        </th>
+        <th class="m-180">
+          Trạng thái
+          <div class="line"></div>
+        </th>
         <th class="m-120 th-sticky">
           Chức năng
           <div class="line"></div>
@@ -39,9 +60,11 @@
 
 <script>
 import Employee from "./Employee.vue";
+import CheckboxField from "../commons/CheckboxField";
 export default {
   components: {
     Employee,
+    CheckboxField,
   },
 };
 </script>
@@ -63,13 +86,12 @@ export default {
   position: sticky;
   background: #eceef1;
   top: 0;
+
   border-bottom: 1px solid #c7c7c7;
   box-shadow: 0 1px 1px -1px #bbb;
   z-index: 999;
 }
-.table-head-checkbox {
-  border-right: 1px dotted #c7c7c7;
-}
+
 .m-250 {
   min-width: 250px;
 }
