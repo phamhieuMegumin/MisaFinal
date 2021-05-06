@@ -8,7 +8,9 @@
     <div class="main-content">
       <div class="search-content"></div>
       <!-- Table -->
-      <div class="table-content"></div>
+      <div class="table-content">
+        <ListEmployee />
+      </div>
       <!-- end table-->
     </div>
     <!-- end main content -->
@@ -17,9 +19,11 @@
 
 <script>
 import Button from "../commons/Button";
+import ListEmployee from "../employee/ListEmployee";
 export default {
   components: {
     Button,
+    ListEmployee,
   },
 };
 </script>
@@ -32,7 +36,6 @@ export default {
   right: 0;
   bottom: 0;
   background: #f4f5f6;
-  padding: 0 20px;
 }
 .content-title {
   display: flex;
@@ -46,5 +49,23 @@ export default {
   font-size: 24px;
   font-weight: 700;
   color: #111;
+  padding: 0 20px;
+}
+.main-content {
+  background: #fff;
+  padding: 0 20px;
+}
+.table-content {
+  overflow-x: auto;
+}
+::-webkit-scrollbar {
+  height: 10px;
+  background: #fff;
+}
+::-webkit-scrollbar-thumb {
+  background: #d4d7dc;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #616164;
 }
 </style>

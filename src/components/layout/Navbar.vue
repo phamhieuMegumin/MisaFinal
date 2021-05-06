@@ -208,7 +208,7 @@ export default {};
   margin-right: 8px;
 }
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 6px;
   background: #fff;
 }
 ::-webkit-scrollbar-thumb {

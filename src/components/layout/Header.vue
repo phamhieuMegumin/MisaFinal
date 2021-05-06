@@ -18,10 +18,7 @@
       <div class="header-logo logo-bell"></div>
       <div class="heaser-user">
         <div class="avatar-icon">
-          <img
-            src="id.misa.com.vn/image/getavatar?userId=b9616c97-acf9-4d72-adfa-da91bbed0d93&width=32&height=32"
-            alt="avatar"
-          />
+          <img src="../../assets/img/default-avatar.jpg" alt="avatar" />
         </div>
         <span class="name-user">Phạm Quang Hiếu</span>
         <div class="header-logo logo-dropdown logo-dropdown-m"></div>
@@ -107,9 +104,21 @@ export default {};
   display: flex;
   padding: 0 16px;
   cursor: pointer;
+  align-items: center;
 }
 .name-user {
   color: #111;
   font-weight: 600;
+}
+.avatar-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #e8e8e9;
+  overflow: hidden;
+  margin: 0 8px;
+}
+.avatar-icon img {
+  width: 100%;
 }
 </style>

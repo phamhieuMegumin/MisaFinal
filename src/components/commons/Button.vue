@@ -24,7 +24,7 @@ export default {
   padding: 0 24px;
   color: #fff;
   cursor: pointer;
-  background: #019160;
+  background: #2ca01c;
   border-radius: 4px;
   display: inline-flex;
   justify-content: center;
@@ -32,7 +32,7 @@ export default {
 }
 
 .btn:hover {
-  background: #2fbe8e;
+  background: #35bf22;
 }
 
 .btn:active {
