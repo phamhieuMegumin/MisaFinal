@@ -10,10 +10,28 @@
         <th class="m-150">Số tài khoản</th>
         <th class="m-250">Tên ngân hàng</th>
         <th class="m-180">Trạng thái</th>
-        <th class="m-120">Chức năng</th>
+        <th class="m-120 th-sticky">
+          Chức năng
+          <div class="line"></div>
+        </th>
       </tr>
     </thead>
     <tbody>
+      <Employee />
+      <Employee />
+      <Employee />
+      <Employee />
+      <Employee />
+      <Employee />
+      <Employee />
+      <Employee />
+      <Employee />
+      <Employee />
+      <Employee />
+      <Employee />
+      <Employee />
+      <Employee />
+      <Employee />
       <Employee />
     </tbody>
   </table>
@@ -35,15 +53,19 @@ export default {
 }
 .table thead tr {
   height: 34px;
-  background: #eceef1;
 }
 .table thead th {
   text-align: left;
   padding: 5px 10px;
-  border-bottom: 1px solid #c7c7c7;
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 600;
+  position: sticky;
+  background: #eceef1;
+  top: 0;
+  border-bottom: 1px solid #c7c7c7;
+  box-shadow: 0 1px 1px -1px #bbb;
+  z-index: 999;
 }
 .table-head-checkbox {
   border-right: 1px dotted #c7c7c7;
@@ -59,5 +81,16 @@ export default {
 }
 .m-120 {
   min-width: 120px;
+}
+.th-sticky {
+  right: 0;
+}
+.line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  background-color: #c7c7c7;
+  height: 100%;
 }
 </style>

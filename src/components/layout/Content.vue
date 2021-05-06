@@ -43,13 +43,13 @@ export default {
   justify-content: space-between;
   width: 100%;
   height: 94px;
+  padding: 0 20px;
 }
 .title {
   display: block;
   font-size: 24px;
   font-weight: 700;
   color: #111;
-  padding: 0 20px;
 }
 .main-content {
   background: #fff;
@@ -57,8 +57,10 @@ export default {
 }
 .table-content {
   overflow-x: auto;
+  height: calc(100vh - 94px - 48px - 32px);
 }
 ::-webkit-scrollbar {
+  width: 10px;
   height: 10px;
   background: #fff;
 }
@@ -67,5 +69,9 @@ export default {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #616164;
+}
+/* search content */
+.search-content {
+  padding: 16px;
 }
 </style>
