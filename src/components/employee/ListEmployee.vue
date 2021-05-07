@@ -1,70 +1,75 @@
 <template>
-  <table class="table">
-    <thead>
-      <tr>
-        <th class="table-head-checkbox"><CheckboxField /></th>
-        <th class="m-150">
-          Mã nhân viên
-          <div class="line"></div>
-        </th>
-        <th class="m-250">
-          Tên nhân viên
-          <div class="line"></div>
-        </th>
-        <th class="m-250">
-          Chức danh
-          <div class="line"></div>
-        </th>
-        <th class="m-250">
-          Tên đơn vị
-          <div class="line"></div>
-        </th>
-        <th class="m-150">
-          Số tài khoản
-          <div class="line"></div>
-        </th>
-        <th class="m-250">
-          Tên ngân hàng
-          <div class="line"></div>
-        </th>
-        <th class="m-180">
-          Trạng thái
-          <div class="line"></div>
-        </th>
-        <th class="m-120 th-sticky">
-          Chức năng
-          <div class="line"></div>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <Employee />
-      <Employee />
-      <Employee />
-      <Employee />
-      <Employee />
-      <Employee />
-      <Employee />
-      <Employee />
-      <Employee />
-      <Employee />
-      <Employee />
-      <Employee />
-      <Employee />
-      <Employee />
-      <Employee />
-      <Employee />
-    </tbody>
-  </table>
+  <div>
+    <Modal />
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="table-head-checkbox"><CheckboxField /></th>
+          <th class="m-150">
+            Mã nhân viên
+            <div class="line"></div>
+          </th>
+          <th class="m-250">
+            Tên nhân viên
+            <div class="line"></div>
+          </th>
+          <th class="m-250">
+            Chức danh
+            <div class="line"></div>
+          </th>
+          <th class="m-250">
+            Tên đơn vị
+            <div class="line"></div>
+          </th>
+          <th class="m-150">
+            Số tài khoản
+            <div class="line"></div>
+          </th>
+          <th class="m-250">
+            Tên ngân hàng
+            <div class="line"></div>
+          </th>
+          <th class="m-180">
+            Trạng thái
+            <div class="line"></div>
+          </th>
+          <th class="m-120 th-sticky">
+            Chức năng
+            <div class="line"></div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <Employee />
+        <Employee />
+        <Employee />
+        <Employee />
+        <Employee />
+        <Employee />
+        <Employee />
+        <Employee />
+        <Employee />
+        <Employee />
+        <Employee />
+        <Employee />
+        <Employee />
+        <Employee />
+        <Employee />
+        <Employee />
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script>
 import Employee from "./Employee.vue";
 import CheckboxField from "../commons/CheckboxField";
+import Modal from "../commons/Modal.vue";
 export default {
   components: {
     Employee,
     CheckboxField,
+    Modal,
   },
 };
 </script>
@@ -106,6 +111,7 @@ export default {
 }
 .th-sticky {
   right: 0;
+  text-align: center !important;
 }
 .line {
   position: absolute;

@@ -1,7 +1,8 @@
 <template>
   <div class="field-input-container">
+    <label> {{ label }}</label>
     <div class="input-field" :class="[searchField ? 'search-field' : '']">
-      <input type="text" :placeholder="placeholder" />
+      <input :type="type ? type : 'text'" :placeholder="placeholder" />
       <div v-if="searchField" class="search-icon"></div>
     </div>
   </div>
@@ -9,13 +10,14 @@
 
 <script>
 export default {
-  props: ["placeholder", "searchField"],
+  props: ["placeholder", "searchField", "label", "type"],
 };
 </script>
 
 <style scoped>
 .input-field {
   position: relative;
+  max-height: 32px;
 }
 .input-field input {
   padding: 6px 11px;
@@ -39,5 +41,11 @@ export default {
   height: 24px;
   background: url("../../assets/img/Sprites.64af8f61.svg") no-repeat -992px -357px;
   cursor: pointer;
+}
+label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 4px;
 }
 </style>

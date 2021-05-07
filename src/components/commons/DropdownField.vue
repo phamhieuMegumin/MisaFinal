@@ -1,27 +1,42 @@
 <template>
-  <div class="dropdown-field">
-    <input
-      type="text"
-      class="value"
-      readonly="true"
-      value="20 bản ghi trên 1 trang"
-      autofocus="autofocus"
-    />
-    <div class="dropdown-icon-wrapper">
-      <div class="dropdown-icon"></div>
-    </div>
-    <div class="list-select">
-      <div class="list-item">10 bản ghi trên một trang</div>
-      <div class="list-item active">20 bản ghi trên một trang</div>
-      <div class="list-item">30 bản ghi trên một trang</div>
-      <div class="list-item">50 bản ghi trên một trang</div>
-      <div class="list-item">100 bản ghi trên một trang</div>
+  <div class="container">
+    <label v-if="label">{{ label }}</label>
+    <div class="dropdown-field">
+      <input
+        type="text"
+        class="value"
+        readonly="true"
+        value="20 bản ghi trên 1 trang"
+        autofocus="autofocus"
+      />
+      <div @click="handleShowSelect" class="dropdown-icon-wrapper">
+        <div class="dropdown-icon"></div>
+      </div>
+      <div class="list-select" :class="[isShowSelect ? 'active' : '']">
+        <div class="list-item">10 bản ghi trên một trang</div>
+        <div class="list-item active">20 bản ghi trên một trang</div>
+        <div class="list-item">30 bản ghi trên một trang</div>
+        <div class="list-item">50 bản ghi trên một trang</div>
+        <div class="list-item">100 bản ghi trên một trang</div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["label"],
+  data() {
+    return {
+      isShowSelect: false,
+    };
+  },
+  methods: {
+    handleShowSelect() {
+      this.isShowSelect = !this.isShowSelect;
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -71,6 +86,15 @@ export default {};
   padding: 2px 0;
   border: 1px solid #babec5;
   border-radius: 2px;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: all linear 0.2s;
+}
+.list-select.active {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
 }
 .list-item {
   background: #fff;
@@ -86,5 +110,11 @@ export default {};
 .list-item.active {
   background: #2ca01c;
   color: #fff;
+}
+label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 4px;
 }
 </style>
