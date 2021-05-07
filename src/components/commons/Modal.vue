@@ -94,13 +94,57 @@
           </div>
           <!-- end modal content right -->
         </div>
+        <!-- modal content bottom-->
+        <div class="modal-content-bottom pt-24">
+          <div class="p-12">
+            <InputField :label="'Địa chỉ'" />
+          </div>
+          <div class="p-12 group-input">
+            <div class=" pr-6">
+              <InputField :label="'ĐT di động'" />
+            </div>
+            <div class=" pr-6">
+              <InputField :label="'ĐT cố định'" />
+            </div>
+            <div class=" pr-6">
+              <InputField :label="'Email'" />
+            </div>
+          </div>
+          <div class="p-12 group-input">
+            <div class=" pr-6">
+              <InputField :label="'Tài khoản ngân hàng'" />
+            </div>
+            <div class=" pr-6">
+              <InputField :label="'Tên ngân hàng'" />
+            </div>
+            <div class=" pr-6">
+              <InputField :label="'Chi nhánh'" />
+            </div>
+          </div>
+        </div>
       </div>
       <!-- end modal content -->
+      <!-- modal footer -->
+      <div class="modal-footer-container">
+        <div class="modal-footer">
+          <div class="btn-cancel">
+            <Button :content="'Hủy'" :btnWhite="true" />
+          </div>
+          <div class="btn-group">
+            <div class="pr-12">
+              <Button :content="'Cất'" :btnWhite="true" />
+            </div>
+            <Button :content="'Cất và Thêm'" />
+          </div>
+        </div>
+      </div>
+      <!-- end modal footer -->
     </div>
   </div>
 </template>
 
 <script>
+import Button from "./Button.vue";
 import CheckboxField from "./CheckboxField.vue";
 import DropdownField from "./DropdownField.vue";
 import InputField from "./InputField.vue";
@@ -111,7 +155,7 @@ export default {
       female: false,
     };
   },
-  components: { CheckboxField, InputField, DropdownField },
+  components: { CheckboxField, InputField, DropdownField, Button },
 };
 </script>
 
@@ -203,9 +247,17 @@ export default {
 .pr-6 {
   padding-right: 6px;
 }
-
+.pr-12 {
+  padding-right: 12px;
+}
 .p-12 {
   padding-bottom: 12px;
+}
+.pt-24 {
+  padding-top: 24px;
+}
+.pb-24 {
+  padding-bottom: 24px;
 }
 .modal-content-left {
   padding-right: 26px;
@@ -255,5 +307,24 @@ export default {
   font-weight: 700;
   padding-left: 10px;
   margin-bottom: 4px;
+}
+/* modal footer */
+.modal-footer-container {
+  padding: 0 32px;
+  height: 77px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.modal-footer {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #babec5;
+}
+.btn-group {
+  display: flex;
 }
 </style>

@@ -1,31 +1,23 @@
 <template>
-  <div
-    :class="[
-      'btn',
-      btnIcon ? 'btn-icon' : '',
-      'btn__add',
-      btnDelete ? 'btn__delete' : '',
-    ]"
-  >
-    <span :class="[btnIcon ? 'btn__icon btn__icon__add' : '']"></span>
+  <div :class="['btn', btnWhite ? 'btn-white' : '']">
     <span>{{ content }}</span>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["btnIcon", "content", "btnDelete"],
+  props: ["content", "btnWhite"],
 };
 </script>
 
 <style scoped>
 .btn {
-  height: 40px;
-  padding: 0 24px;
+  height: 36px;
+  padding: 8px 20px;
   color: #fff;
   cursor: pointer;
   background: #2ca01c;
-  border-radius: 4px;
+  border-radius: 3px;
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -39,26 +31,15 @@ export default {
   background: #01b075;
 }
 
-.btn-icon {
-  padding: 0 16px;
+.btn.btn-white {
+  background: #fff;
+  border: 1px solid #8d9096;
+  color: #111;
 }
-
-.btn__icon {
-  width: 16px;
-  height: 16px;
-  background-size: contain;
-  margin-right: 8px;
+.btn.btn-white span {
+  font-weight: 600;
 }
-/* .btn__icon__add {
-  background-image: url("../../assets/icon/add.png");
-}
-.btn__icon__save {
-  background-image: url("../../assets/icon/document-online.png");
-} */
-.btn__delete {
-  background: red;
-}
-.tr__active .btn__delete.active {
-  display: flex;
+.btn.btn-white:hover {
+  background-color: #d2d3d6;
 }
 </style>
