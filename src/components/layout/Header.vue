@@ -98,7 +98,7 @@ export default {};
   padding: 0 20px;
 }
 .header-right .logo-dropdown-m {
-  background-position: -1076px -32px;
+  background-position: -1076px -28px;
 }
 .heaser-user {
   display: flex;

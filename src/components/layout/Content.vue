@@ -2,7 +2,9 @@
   <div class="content-container">
     <div class="content-title">
       <h3 class="title">Nhân viên</h3>
-      <Button content="Thêm mới nhân viên" />
+      <div @click="Handle_Show_Modal" class="btn-add">
+        <Button content="Thêm mới nhân viên" />
+      </div>
     </div>
     <!-- main content -->
     <div class="main-content">
@@ -49,12 +51,16 @@ import Button from "../commons/Button";
 import ListEmployee from "../employee/ListEmployee";
 import InputField from "../commons/InputField";
 import DropdownField from "../commons/DropdownField";
+import { mapMutations } from "vuex";
 export default {
   components: {
     Button,
     ListEmployee,
     InputField,
     DropdownField,
+  },
+  methods: {
+    ...mapMutations(["Handle_Show_Modal"]),
   },
 };
 </script>

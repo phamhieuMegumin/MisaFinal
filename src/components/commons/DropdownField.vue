@@ -12,7 +12,13 @@
       <div @click="handleShowSelect" class="dropdown-icon-wrapper">
         <div class="dropdown-icon"></div>
       </div>
-      <div class="list-select" :class="[isShowSelect ? 'active' : '']">
+      <div
+        class="list-select"
+        :class="[
+          isShowSelect ? 'active' : '',
+          down ? 'list-select-down' : 'list-select-up',
+        ]"
+      >
         <div class="list-item">10 bản ghi trên một trang</div>
         <div class="list-item active">20 bản ghi trên một trang</div>
         <div class="list-item">30 bản ghi trên một trang</div>
@@ -25,7 +31,7 @@
 
 <script>
 export default {
-  props: ["label"],
+  props: ["label", "down"],
   data() {
     return {
       isShowSelect: false,
@@ -79,7 +85,7 @@ export default {
 .dropdown-icon-wrapper:hover {
   background: #e0e0e0;
 }
-.list-select {
+.list-select-up {
   position: absolute;
   width: 100%;
   bottom: 34px;
@@ -90,6 +96,20 @@ export default {
   opacity: 0;
   transform: translateY(-5px);
   transition: all linear 0.2s;
+  z-index: 9999;
+}
+.list-select-down {
+  position: absolute;
+  width: 100%;
+  top: 34px;
+  padding: 2px 0;
+  border: 1px solid #babec5;
+  border-radius: 2px;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: all linear 0.2s;
+  z-index: 9999;
 }
 .list-select.active {
   visibility: visible;

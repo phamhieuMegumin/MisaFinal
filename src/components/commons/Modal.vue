@@ -1,7 +1,7 @@
 <template>
   <div class="modal-container">
-    <div class="layout"></div>
-    <div class="modal-wrapper">
+    <div class="layout" :class="isShowModal ? 'active' : ''"></div>
+    <div class="modal-wrapper" :class="isShowModal ? 'active' : ''">
       <!-- modal header -->
       <div class="modal-header-container">
         <div class="modal-header">
@@ -17,7 +17,7 @@
         </div>
         <div class="modal-close">
           <div class="modal-icon help-icon"></div>
-          <div class="modal-icon close-icon"></div>
+          <div @click="Handle_Show_Modal" class="modal-icon close-icon"></div>
         </div>
       </div>
       <!-- end modal header -->
@@ -35,7 +35,7 @@
               </div>
             </div>
             <div class="p-12">
-              <DropdownField :label="'Đơn vị'" />
+              <DropdownField :label="'Đơn vị'" :down="true" />
             </div>
             <div class="p-12">
               <InputField :label="'Chức danh'" />
@@ -127,7 +127,7 @@
       <!-- modal footer -->
       <div class="modal-footer-container">
         <div class="modal-footer">
-          <div class="btn-cancel">
+          <div @click="Handle_Show_Modal" class="btn-cancel">
             <Button :content="'Hủy'" :btnWhite="true" />
           </div>
           <div class="btn-group">
@@ -148,12 +148,19 @@ import Button from "./Button.vue";
 import CheckboxField from "./CheckboxField.vue";
 import DropdownField from "./DropdownField.vue";
 import InputField from "./InputField.vue";
+import { mapGetters, mapMutations } from "vuex";
 export default {
   data() {
     return {
       male: true,
       female: false,
     };
+  },
+  computed: {
+    ...mapGetters(["isShowModal"]),
+  },
+  methods: {
+    ...mapMutations(["Handle_Show_Modal"]),
   },
   components: { CheckboxField, InputField, DropdownField, Button },
 };
@@ -166,22 +173,36 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.4);
+  visibility: hidden;
+  opacity: 0;
   z-index: 9999;
+  transition: all linear 0.15s;
+}
+.layout.active {
+  visibility: visible;
+  opacity: 1;
 }
 .modal-wrapper {
   position: fixed;
   overflow: auto;
   overflow-y: visible;
-  height: calc(100% - 73px);
+  height: calc(100% - 34px);
   width: 900px;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(0.8);
   background: #fff;
   z-index: 10000;
+  visibility: hidden;
+  opacity: 0;
+  transition: all linear 0.15s;
 }
-
+.modal-wrapper.active {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
 /* header modal */
 .modal-header-container {
   display: flex;
@@ -310,9 +331,12 @@ export default {
 }
 /* modal footer */
 .modal-footer-container {
-  padding: 0 32px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
   height: 77px;
-  width: 100%;
+  padding: 0 32px;
   display: flex;
   align-items: center;
 }

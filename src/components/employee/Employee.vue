@@ -12,7 +12,7 @@
     <td>Helosdf</td>
     <td class="sticky">
       <div class="fix-container">
-        <span>Sửa</span>
+        <span @click="Handle_Show_Confirm_Modal">Sửa</span>
         <div @click="handleShowSelect" class="choose-btn">
           <div class="dropdown-icon"></div>
           <div v-if="isShownFixSelect" class="list-select">
@@ -22,13 +22,13 @@
           </div>
         </div>
       </div>
-
       <div class="line"></div>
     </td>
   </tr>
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 import CheckboxField from "../commons/CheckboxField";
 export default {
   data() {
@@ -43,6 +43,7 @@ export default {
     handleShowSelect() {
       this.isShownFixSelect = !this.isShownFixSelect;
     },
+    ...mapMutations(["Handle_Show_Modal", "Handle_Show_Confirm_Modal"]),
   },
 };
 </script>

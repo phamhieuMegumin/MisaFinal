@@ -1,5 +1,6 @@
 <template>
   <div>
+    <ConfirmModal />
     <Modal />
     <table class="table">
       <thead>
@@ -65,11 +66,13 @@
 import Employee from "./Employee.vue";
 import CheckboxField from "../commons/CheckboxField";
 import Modal from "../commons/Modal.vue";
+import ConfirmModal from "../commons/ConfirmModal";
 export default {
   components: {
     Employee,
     CheckboxField,
     Modal,
+    ConfirmModal,
   },
 };
 </script>
