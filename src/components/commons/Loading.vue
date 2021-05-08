@@ -22,4 +22,11 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.loading {
+  width: 48px;
+  height: 48px;
+}
+.loading img {
+  width: 100%;
+}
 </style>

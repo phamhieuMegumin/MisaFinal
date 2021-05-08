@@ -28,7 +28,7 @@
           </div>
           <div class="pagination-wrapper">
             <div class="dropdown-pagiantion">
-              <DropdownField />
+              <DropdownField :listOption="listOption" />
             </div>
             <div class="paginations">
               <div class="pag-btn prev-btn">Trước</div>
@@ -58,6 +58,32 @@ export default {
     ListEmployee,
     InputField,
     DropdownField,
+  },
+  data() {
+    return {
+      listOption: [
+        {
+          optionId: 1,
+          optionContent: "10 bản ghi trên 1 trang",
+        },
+        {
+          optionId: 2,
+          optionContent: "20 bản ghi trên 1 trang",
+        },
+        {
+          optionId: 3,
+          optionContent: "30 bản ghi trên 1 trang",
+        },
+        {
+          optionId: 4,
+          optionContent: "50 bản ghi trên 1 trang",
+        },
+        {
+          optionId: 5,
+          optionContent: "100 bản ghi trên 1 trang",
+        },
+      ],
+    };
   },
   methods: {
     ...mapMutations(["Handle_Show_Modal"]),

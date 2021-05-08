@@ -19,11 +19,13 @@
           down ? 'list-select-down' : 'list-select-up',
         ]"
       >
-        <div class="list-item">10 bản ghi trên một trang</div>
-        <div class="list-item active">20 bản ghi trên một trang</div>
-        <div class="list-item">30 bản ghi trên một trang</div>
-        <div class="list-item">50 bản ghi trên một trang</div>
-        <div class="list-item">100 bản ghi trên một trang</div>
+        <div
+          v-for="option in listOption"
+          :key="option.optionId"
+          class="list-item"
+        >
+          {{ option.optionContent }}
+        </div>
       </div>
     </div>
   </div>
@@ -31,7 +33,7 @@
 
 <script>
 export default {
-  props: ["label", "down"],
+  props: ["label", "down", "listOption"],
   data() {
     return {
       isShowSelect: false,

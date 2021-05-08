@@ -5,11 +5,14 @@
     </td>
     <td>{{ employee.employeeCode }}</td>
     <td>{{ employee.fullName }}</td>
+    <td>{{ employee.genderName }}</td>
+    <td>{{ formatDateOfBirth }}</td>
+    <td>{{ employee.identityNumber }}</td>
     <td>{{ employee.positionName }}</td>
     <td>{{ formatDeparmentName }}</td>
     <td>{{ employee.bankAccount }}</td>
     <td>{{ employee.bankName }}</td>
-    <td>Đang hoạt động</td>
+    <td>{{ employee.bankBranch }}</td>
     <td class="sticky">
       <div class="fix-container">
         <span @click="Handle_Show_Confirm_Modal">Sửa</span>
@@ -49,6 +52,15 @@ export default {
           return this.listDeparment[i].deparmentName;
       }
       return null;
+    },
+    formatDateOfBirth() {
+      const newDate = new Date(this.employee.dateOfBirth);
+      let strDay = newDate.getDate();
+      let strMonth = newDate.getMonth() + 1;
+      let strYear = newDate.getFullYear();
+      if (strDay < 10) strDay = `0${strDay}`;
+      if (strMonth < 10) strMonth = `0${strMonth}`;
+      return `${strDay}/${strMonth}/${strYear}`;
     },
   },
   methods: {

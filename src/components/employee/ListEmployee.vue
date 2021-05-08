@@ -14,6 +14,18 @@
             Tên nhân viên
             <div class="line"></div>
           </th>
+          <th class="m-120">
+            Giới tính
+            <div class="line"></div>
+          </th>
+          <th class="m-150">
+            Ngày sinh
+            <div class="line"></div>
+          </th>
+          <th class="m-250">
+            Số CMND
+            <div class="line"></div>
+          </th>
           <th class="m-250">
             Chức danh
             <div class="line"></div>
@@ -30,8 +42,8 @@
             Tên ngân hàng
             <div class="line"></div>
           </th>
-          <th class="m-180">
-            Trạng thái
+          <th class="m-250">
+            Chi nhánh tài khoản ngân hàng
             <div class="line"></div>
           </th>
           <th class="m-120 th-sticky">
