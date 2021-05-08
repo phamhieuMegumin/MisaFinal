@@ -15,12 +15,14 @@
     <td>{{ employee.bankBranch }}</td>
     <td class="sticky">
       <div class="fix-container">
-        <span @click="Handle_Show_Confirm_Modal">Sửa</span>
+        <span @click="handleUpdate(employee.employeeId)">Sửa</span>
         <div @click="handleShowSelect" class="choose-btn">
           <div class="dropdown-icon"></div>
           <div v-if="isShownFixSelect" class="list-select">
             <div class="list-select-item">Nhân bản</div>
-            <div class="list-select-item">Xóa</div>
+            <div class="list-select-item" @click="Handle_Show_Confirm_Modal">
+              Xóa
+            </div>
             <div class="list-select-item">Ngừng sử dụng</div>
           </div>
         </div>
@@ -68,6 +70,10 @@ export default {
       this.isShownFixSelect = !this.isShownFixSelect;
     },
     ...mapMutations(["Handle_Show_Modal", "Handle_Show_Confirm_Modal"]),
+    handleUpdate(employeeId) {
+      this.$store.dispatch("getEmployeeInfo", employeeId);
+      this.Handle_Show_Modal();
+    },
   },
 };
 </script>

@@ -165,7 +165,9 @@
             <div class="pr-12">
               <Button :content="'Cất'" :btnWhite="true" />
             </div>
-            <Button :content="'Cất và Thêm'" />
+            <div @click="handleSave">
+              <Button :content="'Cất và Thêm'" />
+            </div>
           </div>
         </div>
       </div>
@@ -189,7 +191,7 @@ export default {
         EmployeeCode: "",
         FullName: "",
         DeparmentId: "",
-        Gender: 0,
+        Gender: 1,
         DateOfBirth: null,
         IdentityNumber: "",
         IdentityDate: null,
@@ -213,7 +215,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["isShowModal", "listDeparment"]),
+    ...mapGetters(["isShowModal", "listDeparment", "deparmentValueSelect"]),
     formatOptionDepartment() {
       const formatValue = this.listDeparment.map((item) => {
         return {
@@ -227,6 +229,33 @@ export default {
   },
   methods: {
     ...mapMutations(["Handle_Show_Modal"]),
+    // Save modal
+    handleSave() {
+      if (this.deparmentValueSelect) {
+        this.employee.DeparmentId = this.deparmentValueSelect;
+      }
+      this.$store.dispatch("insertEmployee", this.employee);
+      this.Handle_Show_Modal();
+      // reset modal
+      this.employee = {
+        EmployeeCode: "",
+        FullName: "",
+        DeparmentId: "",
+        Gender: 1,
+        DateOfBirth: null,
+        IdentityNumber: "",
+        IdentityDate: null,
+        IdentityPlace: "",
+        PositionName: "",
+        Address: "",
+        PhoneNumber: "",
+        LandlinePhone: "",
+        Email: "",
+        BankAccount: "",
+        BankName: "",
+        BankBranch: "",
+      };
+    },
   },
   components: { CheckboxField, InputField, DropdownField, Button },
 };
