@@ -3,6 +3,7 @@
     <Navbar />
     <Header />
     <Content />
+    <Loading />
   </div>
 </template>
 
@@ -10,12 +11,14 @@
 import Header from "./components/layout/Header.vue";
 import Navbar from "./components/layout/Navbar";
 import Content from "./components/layout/Content";
+import Loading from "./components/commons/Loading.vue";
 export default {
   name: "App",
   components: {
     Navbar,
     Header,
     Content,
+    Loading,
   },
 };
 </script>

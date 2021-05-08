@@ -28,17 +28,20 @@
           <div class="modal-content-left">
             <div class="p-12 group-input">
               <div class="input-code pr-6">
-                <InputField :label="'Mã'" />
+                <InputField :label="'Mã'" v-model="employee.EmployeeCode" />
               </div>
               <div class="input-name">
-                <InputField :label="'Tên'" />
+                <InputField :label="'Tên'" v-model="employee.FullName" />
               </div>
             </div>
             <div class="p-12">
               <DropdownField :label="'Đơn vị'" :down="true" />
             </div>
             <div class="p-12">
-              <InputField :label="'Chức danh'" />
+              <InputField
+                :label="'Chức danh'"
+                v-model="employee.PositionName"
+              />
             </div>
           </div>
           <!-- end modal content left -->
@@ -46,7 +49,11 @@
           <div class="modal-content-right">
             <div class="p-12 group-input">
               <div class="input-date pr-6">
-                <InputField :label="'Ngày sinh'" type="date" />
+                <InputField
+                  :label="'Ngày sinh'"
+                  type="date"
+                  v-model="employee.DateOfBirth"
+                />
               </div>
               <!-- gender -->
               <div class="combobox-wrapper">
@@ -82,14 +89,21 @@
             </div>
             <div class="p-12 group-input">
               <div class="input-editer pr-6">
-                <InputField :label="'Số CMND'" />
+                <InputField
+                  :label="'Số CMND'"
+                  v-model="employee.IdentityNumber"
+                />
               </div>
               <div class="input-date-rage">
-                <InputField :label="'Ngày cấp'" type="date" />
+                <InputField
+                  :label="'Ngày cấp'"
+                  type="date"
+                  v-model="employee.IdentityDate"
+                />
               </div>
             </div>
             <div class=" pr-6">
-              <InputField :label="'Nơi cấp'" />
+              <InputField :label="'Nơi cấp'" v-model="employee.IdentityPlace" />
             </div>
           </div>
           <!-- end modal content right -->
@@ -97,28 +111,40 @@
         <!-- modal content bottom-->
         <div class="modal-content-bottom pt-24">
           <div class="p-12">
-            <InputField :label="'Địa chỉ'" />
+            <InputField :label="'Địa chỉ'" v-model="employee.Address" />
           </div>
           <div class="p-12 group-input">
             <div class=" pr-6">
-              <InputField :label="'ĐT di động'" />
+              <InputField
+                :label="'ĐT di động'"
+                v-model="employee.PhoneNumber"
+              />
             </div>
             <div class=" pr-6">
-              <InputField :label="'ĐT cố định'" />
+              <InputField
+                :label="'ĐT cố định'"
+                v-model="employee.LandlinePhone"
+              />
             </div>
             <div class=" pr-6">
-              <InputField :label="'Email'" />
+              <InputField :label="'Email'" v-model="employee.Email" />
             </div>
           </div>
           <div class="p-12 group-input">
             <div class=" pr-6">
-              <InputField :label="'Tài khoản ngân hàng'" />
+              <InputField
+                :label="'Tài khoản ngân hàng'"
+                v-model="employee.BankAccount"
+              />
             </div>
             <div class=" pr-6">
-              <InputField :label="'Tên ngân hàng'" />
+              <InputField
+                :label="'Tên ngân hàng'"
+                v-model="employee.BankName"
+              />
             </div>
             <div class=" pr-6">
-              <InputField :label="'Chi nhánh'" />
+              <InputField :label="'Chi nhánh'" v-model="employee.BankBranch" />
             </div>
           </div>
         </div>
@@ -154,6 +180,24 @@ export default {
     return {
       male: true,
       female: false,
+      employee: {
+        EmployeeCode: "",
+        FullName: "",
+        DeparmentId: "",
+        Gender: null,
+        DateOfBirth: null,
+        IdentityNumber: "",
+        IdentityDate: null,
+        IdentityPlace: "",
+        PositionName: "",
+        Address: "",
+        PhoneNumber: "",
+        LandlinePhone: "",
+        Email: "",
+        BankAccount: "",
+        BankName: "",
+        BankBranch: "",
+      },
     };
   },
   computed: {

@@ -41,22 +41,11 @@
         </tr>
       </thead>
       <tbody>
-        <Employee />
-        <Employee />
-        <Employee />
-        <Employee />
-        <Employee />
-        <Employee />
-        <Employee />
-        <Employee />
-        <Employee />
-        <Employee />
-        <Employee />
-        <Employee />
-        <Employee />
-        <Employee />
-        <Employee />
-        <Employee />
+        <Employee
+          v-for="(employee, index) in listEmployee"
+          :key="index"
+          :employee="employee"
+        />
       </tbody>
     </table>
   </div>
@@ -67,12 +56,23 @@ import Employee from "./Employee.vue";
 import CheckboxField from "../commons/CheckboxField";
 import Modal from "../commons/Modal.vue";
 import ConfirmModal from "../commons/ConfirmModal";
+import { mapActions, mapGetters } from "vuex";
 export default {
+  created() {
+    this.getListEmployee();
+    this.getListDeparment();
+  },
   components: {
     Employee,
     CheckboxField,
     Modal,
     ConfirmModal,
+  },
+  computed: {
+    ...mapGetters(["listEmployee"]),
+  },
+  methods: {
+    ...mapActions(["getListEmployee", "getListDeparment"]),
   },
 };
 </script>

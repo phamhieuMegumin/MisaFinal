@@ -15,7 +15,7 @@
             :searchField="true"
           />
         </div>
-        <div class="refresh-btn">
+        <div @click="getListEmployee" class="refresh-btn">
           <div class="refresh-icon"></div>
         </div>
       </div>
@@ -51,7 +51,7 @@ import Button from "../commons/Button";
 import ListEmployee from "../employee/ListEmployee";
 import InputField from "../commons/InputField";
 import DropdownField from "../commons/DropdownField";
-import { mapMutations } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 export default {
   components: {
     Button,
@@ -61,6 +61,7 @@ export default {
   },
   methods: {
     ...mapMutations(["Handle_Show_Modal"]),
+    ...mapActions(["getListEmployee"]),
   },
 };
 </script>

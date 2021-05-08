@@ -2,7 +2,12 @@
   <div class="field-input-container">
     <label> {{ label }}</label>
     <div class="input-field" :class="[searchField ? 'search-field' : '']">
-      <input :type="type ? type : 'text'" :placeholder="placeholder" />
+      <input
+        :type="type ? type : 'text'"
+        :placeholder="placeholder"
+        :value="inputValue"
+        @input="getValue"
+      />
       <div v-if="searchField" class="search-icon"></div>
     </div>
   </div>
@@ -11,6 +16,16 @@
 <script>
 export default {
   props: ["placeholder", "searchField", "label", "type"],
+  data() {
+    return {
+      inputValue: "",
+    };
+  },
+  methods: {
+    getValue(e) {
+      this.$emit("input", e.target.value);
+    },
+  },
 };
 </script>
 

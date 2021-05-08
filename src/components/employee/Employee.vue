@@ -3,13 +3,13 @@
     <td class="table-checkbox">
       <CheckboxField />
     </td>
-    <td>Helosdf</td>
-    <td>Helosdf</td>
-    <td>Helosdf</td>
-    <td>Helosdf</td>
-    <td>Helosdf</td>
-    <td>Helosdf</td>
-    <td>Helosdf</td>
+    <td>{{ employee.employeeCode }}</td>
+    <td>{{ employee.fullName }}</td>
+    <td>{{ employee.positionName }}</td>
+    <td>{{ formatDeparmentName }}</td>
+    <td>{{ employee.bankAccount }}</td>
+    <td>{{ employee.bankName }}</td>
+    <td>Đang hoạt động</td>
     <td class="sticky">
       <div class="fix-container">
         <span @click="Handle_Show_Confirm_Modal">Sửa</span>
@@ -28,16 +28,28 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import CheckboxField from "../commons/CheckboxField";
 export default {
+  props: ["employee"],
   data() {
     return {
       isShownFixSelect: false,
+      deparmentName: "",
     };
   },
   components: {
     CheckboxField,
+  },
+  computed: {
+    ...mapGetters(["listDeparment"]),
+    formatDeparmentName() {
+      for (let i = 0; i < this.listDeparment.length; i++) {
+        if (this.listDeparment[i].deparmentId === this.employee.deparmentId)
+          return this.listDeparment[i].deparmentName;
+      }
+      return null;
+    },
   },
   methods: {
     handleShowSelect() {
