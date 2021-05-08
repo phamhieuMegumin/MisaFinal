@@ -35,7 +35,12 @@
               </div>
             </div>
             <div class="p-12">
-              <DropdownField :label="'Đơn vị'" :down="true" />
+              <DropdownField
+                :label="'Đơn vị'"
+                :down="true"
+                :listOption="formatOptionDepartment"
+                nameField="DeparmentField"
+              />
             </div>
             <div class="p-12">
               <InputField
@@ -184,7 +189,7 @@ export default {
         EmployeeCode: "",
         FullName: "",
         DeparmentId: "",
-        Gender: null,
+        Gender: 0,
         DateOfBirth: null,
         IdentityNumber: "",
         IdentityDate: null,
@@ -200,8 +205,25 @@ export default {
       },
     };
   },
+  watch: {
+    female() {
+      if (this.male === true) this.employee.Gender = 1;
+      else this.employee.Gender = 0;
+      console.log(this.employee.Gender);
+    },
+  },
   computed: {
-    ...mapGetters(["isShowModal"]),
+    ...mapGetters(["isShowModal", "listDeparment"]),
+    formatOptionDepartment() {
+      const formatValue = this.listDeparment.map((item) => {
+        return {
+          optionId: item.deparmentId,
+          optionContent: item.deparmentName,
+          value: item.deparmentId,
+        };
+      });
+      return formatValue;
+    },
   },
   methods: {
     ...mapMutations(["Handle_Show_Modal"]),
@@ -383,6 +405,7 @@ export default {
   padding: 0 32px;
   display: flex;
   align-items: center;
+  background: #fff;
 }
 .modal-footer {
   display: flex;

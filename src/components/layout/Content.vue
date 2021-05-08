@@ -28,7 +28,7 @@
           </div>
           <div class="pagination-wrapper">
             <div class="dropdown-pagiantion">
-              <DropdownField :listOption="listOption" />
+              <DropdownField :listOption="listOption" nameField="ItemPerPage" />
             </div>
             <div class="paginations">
               <div class="pag-btn prev-btn">Trước</div>
@@ -65,22 +65,27 @@ export default {
         {
           optionId: 1,
           optionContent: "10 bản ghi trên 1 trang",
+          value: 10,
         },
         {
           optionId: 2,
           optionContent: "20 bản ghi trên 1 trang",
+          value: 20,
         },
         {
           optionId: 3,
           optionContent: "30 bản ghi trên 1 trang",
+          value: 30,
         },
         {
           optionId: 4,
           optionContent: "50 bản ghi trên 1 trang",
+          value: 50,
         },
         {
           optionId: 5,
           optionContent: "100 bản ghi trên 1 trang",
+          value: 100,
         },
       ],
     };

@@ -6,7 +6,7 @@
         type="text"
         class="value"
         readonly="true"
-        value="20 bản ghi trên 1 trang"
+        :value="currentValue"
         autofocus="autofocus"
       />
       <div @click="handleShowSelect" class="dropdown-icon-wrapper">
@@ -23,6 +23,7 @@
           v-for="option in listOption"
           :key="option.optionId"
           class="list-item"
+          @click="getSelectValue(option.optionContent, option.value)"
         >
           {{ option.optionContent }}
         </div>
@@ -32,16 +33,29 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
-  props: ["label", "down", "listOption"],
+  props: ["label", "down", "listOption", "nameField"],
   data() {
     return {
       isShowSelect: false,
+      currentValue: "",
     };
   },
   methods: {
+    ...mapMutations(["CHANGE_ITEM_PER_PAGE"]),
     handleShowSelect() {
       this.isShowSelect = !this.isShowSelect;
+    },
+    getSelectValue(content, value) {
+      this.currentValue = content;
+      if (this.nameField === "ItemPerPage") {
+        this.$store.commit("CHANGE_ITEM_PER_PAGE", value);
+      }
+      if (this.nameField === "DeparmentField") {
+        this.$store.commit("DEPARTMENT_SELECT_VALUE", value);
+      }
+      this.handleShowSelect();
     },
   },
 };

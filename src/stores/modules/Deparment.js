@@ -2,13 +2,18 @@ import axios from "axios";
 
 const state = {
   listDeparment: [],
+  deparmentValueSelect: "", // deparment value modal
 };
 const getters = {
   listDeparment: (state) => state.listDeparment,
+  deparmentValueSelect: (state) => state.deparmentValueSelect,
 };
 const mutations = {
   GET_LIST_DEPARMENT(state, data) {
     state.listDeparment = data;
+  },
+  DEPARTMENT_SELECT_VALUE(state, data) {
+    state.deparmentValueSelect = data;
   },
 };
 const actions = {
