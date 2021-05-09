@@ -40,6 +40,7 @@
                 :down="true"
                 :listOption="formatOptionDepartment"
                 nameField="DeparmentField"
+                :value="employee.deparmentId"
               />
             </div>
             <div class="p-12">
@@ -185,6 +186,12 @@ import { mapGetters, mapMutations } from "vuex";
 export default {
   mounted() {
     this.$store.watch(
+      (state) => state.newEmloyeeCode,
+      () => {
+        this.employee.employeeCode = this.newEmloyeeCode;
+      }
+    );
+    this.$store.watch(
       (state) => state.employeeDetail,
       () => {
         // format date
@@ -246,6 +253,7 @@ export default {
       "listDeparment",
       "deparmentValueSelect",
       "employeeDetail",
+      "newEmloyeeCode",
     ]),
     formatOptionDepartment() {
       const formatValue = this.listDeparment.map((item) => {

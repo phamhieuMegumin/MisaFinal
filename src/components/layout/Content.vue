@@ -2,7 +2,7 @@
   <div class="content-container">
     <div class="content-title">
       <h3 class="title">Nhân viên</h3>
-      <div @click="Handle_Show_Modal" class="btn-add">
+      <div @click="handleInsert" class="btn-add">
         <Button content="Thêm mới nhân viên" />
       </div>
     </div>
@@ -92,7 +92,11 @@ export default {
   },
   methods: {
     ...mapMutations(["Handle_Show_Modal"]),
-    ...mapActions(["getListEmployee"]),
+    ...mapActions(["getListEmployee", "getNewEmployeeCode"]),
+    handleInsert() {
+      this.getNewEmployeeCode();
+      this.Handle_Show_Modal();
+    },
   },
 };
 </script>

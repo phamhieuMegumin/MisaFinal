@@ -35,12 +35,22 @@
 <script>
 import { mapMutations } from "vuex";
 export default {
-  props: ["label", "down", "listOption", "nameField"],
+  props: ["label", "down", "listOption", "nameField", "value"],
   data() {
     return {
       isShowSelect: false,
       currentValue: "",
     };
+  },
+  watch: {
+    value() {
+      for (let i = 0; i < this.listOption.length; i++) {
+        if (this.listOption[i].value === this.value) {
+          this.currentValue = this.listOption[i].optionContent;
+          break;
+        }
+      }
+    },
   },
   methods: {
     ...mapMutations(["CHANGE_ITEM_PER_PAGE"]),

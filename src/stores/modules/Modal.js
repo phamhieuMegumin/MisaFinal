@@ -10,7 +10,8 @@ const mutations = {
   Handle_Show_Modal(state) {
     state.isShowModal = !state.isShowModal;
     if (state.isShowModal == false) {
-      state.employeeDetail = null;
+      this.state.employeeDetail = null;
+      this.state.newEmloyeeCode = null;
     }
   },
   Handle_Show_Confirm_Modal(state) {

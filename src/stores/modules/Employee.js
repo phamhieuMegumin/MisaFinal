@@ -12,6 +12,9 @@ const mutations = {
   GET_EMPLOYEE_BY_ID(state, data) {
     this.state.employeeDetail = data;
   },
+  GET_NEW_EMPLOYEE_CODE(state, data) {
+    this.state.newEmloyeeCode = data;
+  },
 };
 const actions = {
   async getListEmployee({ commit }) {
@@ -68,6 +71,19 @@ const actions = {
       });
       commit("HANDLE_SHOW_LOADING", null, { root: true });
       dispatch("getListEmployee");
+    } catch (error) {
+      commit("HANDLE_SHOW_LOADING", null, { root: true });
+      console.log(error);
+    }
+  },
+  async getNewEmployeeCode({ commit }) {
+    try {
+      commit("HANDLE_SHOW_LOADING", null, { root: true });
+      const data = await axios.get(
+        "https://localhost:44308/api/v1/Employees/NewCode"
+      );
+      commit("HANDLE_SHOW_LOADING", null, { root: true });
+      commit("GET_NEW_EMPLOYEE_CODE", data.data);
     } catch (error) {
       commit("HANDLE_SHOW_LOADING", null, { root: true });
       console.log(error);

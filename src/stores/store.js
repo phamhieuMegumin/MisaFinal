@@ -17,9 +17,11 @@ const storeData = {
   },
   state: {
     employeeDetail: null,
+    newEmloyeeCode: null,
   },
   getters: {
     employeeDetail: (state) => state.employeeDetail,
+    newEmloyeeCode: (state) => state.newEmloyeeCode,
   },
 };
 const store = new Vuex.Store(storeData);
