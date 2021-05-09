@@ -17,7 +17,7 @@
         </div>
         <div class="modal-close">
           <div class="modal-icon help-icon"></div>
-          <div @click="Handle_Show_Modal" class="modal-icon close-icon"></div>
+          <div @click="closeModal" class="modal-icon close-icon"></div>
         </div>
       </div>
       <!-- end modal header -->
@@ -28,10 +28,10 @@
           <div class="modal-content-left">
             <div class="p-12 group-input">
               <div class="input-code pr-6">
-                <InputField :label="'Mã'" v-model="employee.EmployeeCode" />
+                <InputField :label="'Mã'" v-model="employee.employeeCode" />
               </div>
               <div class="input-name">
-                <InputField :label="'Tên'" v-model="employee.FullName" />
+                <InputField :label="'Tên'" v-model="employee.fullName" />
               </div>
             </div>
             <div class="p-12">
@@ -45,7 +45,7 @@
             <div class="p-12">
               <InputField
                 :label="'Chức danh'"
-                v-model="employee.PositionName"
+                v-model="employee.positionName"
               />
             </div>
           </div>
@@ -57,7 +57,7 @@
                 <InputField
                   :label="'Ngày sinh'"
                   type="date"
-                  v-model="employee.DateOfBirth"
+                  v-model="employee.dateOfBirth"
                 />
               </div>
               <!-- gender -->
@@ -96,19 +96,19 @@
               <div class="input-editer pr-6">
                 <InputField
                   :label="'Số CMND'"
-                  v-model="employee.IdentityNumber"
+                  v-model="employee.identityNumber"
                 />
               </div>
               <div class="input-date-rage">
                 <InputField
                   :label="'Ngày cấp'"
                   type="date"
-                  v-model="employee.IdentityDate"
+                  v-model="employee.identityDate"
                 />
               </div>
             </div>
             <div class=" pr-6">
-              <InputField :label="'Nơi cấp'" v-model="employee.IdentityPlace" />
+              <InputField :label="'Nơi cấp'" v-model="employee.identityPlace" />
             </div>
           </div>
           <!-- end modal content right -->
@@ -116,40 +116,40 @@
         <!-- modal content bottom-->
         <div class="modal-content-bottom pt-24">
           <div class="p-12">
-            <InputField :label="'Địa chỉ'" v-model="employee.Address" />
+            <InputField :label="'Địa chỉ'" v-model="employee.address" />
           </div>
           <div class="p-12 group-input">
             <div class=" pr-6">
               <InputField
                 :label="'ĐT di động'"
-                v-model="employee.PhoneNumber"
+                v-model="employee.phoneNumber"
               />
             </div>
             <div class=" pr-6">
               <InputField
                 :label="'ĐT cố định'"
-                v-model="employee.LandlinePhone"
+                v-model="employee.landlinePhone"
               />
             </div>
             <div class=" pr-6">
-              <InputField :label="'Email'" v-model="employee.Email" />
+              <InputField :label="'Email'" v-model="employee.email" />
             </div>
           </div>
           <div class="p-12 group-input">
             <div class=" pr-6">
               <InputField
                 :label="'Tài khoản ngân hàng'"
-                v-model="employee.BankAccount"
+                v-model="employee.bankAccount"
               />
             </div>
             <div class=" pr-6">
               <InputField
                 :label="'Tên ngân hàng'"
-                v-model="employee.BankName"
+                v-model="employee.bankName"
               />
             </div>
             <div class=" pr-6">
-              <InputField :label="'Chi nhánh'" v-model="employee.BankBranch" />
+              <InputField :label="'Chi nhánh'" v-model="employee.bankBranch" />
             </div>
           </div>
         </div>
@@ -158,7 +158,7 @@
       <!-- modal footer -->
       <div class="modal-footer-container">
         <div class="modal-footer">
-          <div @click="Handle_Show_Modal" class="btn-cancel">
+          <div @click="closeModal" class="btn-cancel">
             <Button :content="'Hủy'" :btnWhite="true" />
           </div>
           <div class="btn-group">
@@ -183,39 +183,61 @@ import DropdownField from "./DropdownField.vue";
 import InputField from "./InputField.vue";
 import { mapGetters, mapMutations } from "vuex";
 export default {
+  mounted() {
+    this.$store.watch(
+      (state) => state.employeeDetail,
+      () => {
+        this.employee = { ...this.employeeDetail };
+      }
+    );
+  },
   data() {
     return {
       male: true,
       female: false,
       employee: {
-        EmployeeCode: "",
-        FullName: "",
-        DeparmentId: "",
-        Gender: 1,
-        DateOfBirth: null,
-        IdentityNumber: "",
-        IdentityDate: null,
-        IdentityPlace: "",
-        PositionName: "",
-        Address: "",
-        PhoneNumber: "",
-        LandlinePhone: "",
-        Email: "",
-        BankAccount: "",
-        BankName: "",
-        BankBranch: "",
+        employeeCode: "",
+        fullName: "",
+        deparmentId: "",
+        gender: 1,
+        dateOfBirth: null,
+        identityNumber: "",
+        identityDate: null,
+        identityPlace: "",
+        positionName: "",
+        address: "",
+        phoneNumber: "",
+        landlinePhone: "",
+        email: "",
+        bankAccount: "",
+        bankName: "",
+        bankBranch: "",
       },
     };
   },
   watch: {
     female() {
-      if (this.male === true) this.employee.Gender = 1;
-      else this.employee.Gender = 0;
-      console.log(this.employee.Gender);
+      if (this.male === true) this.employee.gender = 1;
+      else this.employee.gender = 0;
+    },
+    "employee.gender"() {
+      console.log(this.employee.gender);
+      if (this.employee.gender === 1) {
+        this.male = true;
+        this.female = false;
+      } else {
+        this.male = false;
+        this.female = true;
+      }
     },
   },
   computed: {
-    ...mapGetters(["isShowModal", "listDeparment", "deparmentValueSelect"]),
+    ...mapGetters([
+      "isShowModal",
+      "listDeparment",
+      "deparmentValueSelect",
+      "employeeDetail",
+    ]),
     formatOptionDepartment() {
       const formatValue = this.listDeparment.map((item) => {
         return {
@@ -232,29 +254,36 @@ export default {
     // Save modal
     handleSave() {
       if (this.deparmentValueSelect) {
-        this.employee.DeparmentId = this.deparmentValueSelect;
+        this.employee.deparmentId = this.deparmentValueSelect;
       }
       this.$store.dispatch("insertEmployee", this.employee);
       this.Handle_Show_Modal();
       // reset modal
+      this.resetModal();
+    },
+    resetModal() {
       this.employee = {
-        EmployeeCode: "",
-        FullName: "",
-        DeparmentId: "",
-        Gender: 1,
-        DateOfBirth: null,
-        IdentityNumber: "",
-        IdentityDate: null,
-        IdentityPlace: "",
-        PositionName: "",
-        Address: "",
-        PhoneNumber: "",
-        LandlinePhone: "",
-        Email: "",
-        BankAccount: "",
-        BankName: "",
-        BankBranch: "",
+        employeeCode: "",
+        fullName: "",
+        deparmentId: "",
+        gender: 1,
+        dateOfBirth: null,
+        identityNumber: "",
+        identityDate: null,
+        identityPlace: "",
+        positionName: "",
+        address: "",
+        phoneNumber: "",
+        landlinePhone: "",
+        email: "",
+        bankAccount: "",
+        bankName: "",
+        bankBranch: "",
       };
+    },
+    closeModal() {
+      this.Handle_Show_Modal();
+      this.resetModal();
     },
   },
   components: { CheckboxField, InputField, DropdownField, Button },

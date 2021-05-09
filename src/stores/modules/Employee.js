@@ -1,7 +1,6 @@
 import axios from "axios";
 const state = {
   listEmployee: [],
-  employeeDetail: null,
 };
 const getters = {
   listEmployee: (state) => state.listEmployee,
@@ -11,7 +10,7 @@ const mutations = {
     state.listEmployee = data;
   },
   GET_EMPLOYEE_BY_ID(state, data) {
-    state.employeeDetail = data;
+    this.state.employeeDetail = data;
   },
 };
 const actions = {
@@ -35,6 +34,7 @@ const actions = {
       );
       commit("HANDLE_SHOW_LOADING", null, { root: true });
       commit("GET_EMPLOYEE_BY_ID", data.data);
+      commit("Handle_Show_Modal", null, { root: true });
     } catch (error) {
       console.log(error);
       commit("HANDLE_SHOW_LOADING", null, { root: true });

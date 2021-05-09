@@ -15,6 +15,12 @@ const storeData = {
     loadingModule,
     paginationModule,
   },
+  state: {
+    employeeDetail: null,
+  },
+  getters: {
+    employeeDetail: (state) => state.employeeDetail,
+  },
 };
 const store = new Vuex.Store(storeData);
 export default store;

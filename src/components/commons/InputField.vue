@@ -5,7 +5,7 @@
       <input
         :type="type ? type : 'text'"
         :placeholder="placeholder"
-        :value="inputValue"
+        :value="value ? value : inputValue"
         @input="getValue"
       />
       <div v-if="searchField" class="search-icon"></div>
@@ -15,12 +15,13 @@
 
 <script>
 export default {
-  props: ["placeholder", "searchField", "label", "type"],
+  props: ["placeholder", "searchField", "label", "type", "value"],
   data() {
     return {
       inputValue: "",
     };
   },
+
   methods: {
     getValue(e) {
       this.$emit("input", e.target.value);

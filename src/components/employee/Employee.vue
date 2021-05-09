@@ -72,7 +72,6 @@ export default {
     ...mapMutations(["Handle_Show_Modal", "Handle_Show_Confirm_Modal"]),
     handleUpdate(employeeId) {
       this.$store.dispatch("getEmployeeInfo", employeeId);
-      this.Handle_Show_Modal();
     },
   },
 };
