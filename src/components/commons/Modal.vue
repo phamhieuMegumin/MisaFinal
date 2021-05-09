@@ -195,14 +195,17 @@ export default {
       (state) => state.employeeDetail,
       () => {
         // format date
-        if (this.employeeDetail.dateOfBirth) {
-          const newdate = this.formatDate(this.employeeDetail.dateOfBirth);
-          this.employeeDetail.dateOfBirth = newdate;
+        if (this.employeeDetail) {
+          if (this.employeeDetail.dateOfBirth) {
+            const newdate = this.formatDate(this.employeeDetail.dateOfBirth);
+            this.employeeDetail.dateOfBirth = newdate;
+          }
+          if (this.employeeDetail.identityDate) {
+            const newDate = this.formatDate(this.employeeDetail.identityDate);
+            this.employeeDetail.identityDate = newDate;
+          }
         }
-        if (this.employeeDetail.identityDate) {
-          const newDate = this.formatDate(this.employeeDetail.identityDate);
-          this.employeeDetail.identityDate = newDate;
-        }
+
         this.employee = { ...this.employeeDetail };
       }
     );
@@ -237,7 +240,6 @@ export default {
       else this.employee.gender = 0;
     },
     "employee.gender"() {
-      console.log(this.employee.gender);
       if (this.employee.gender === 1) {
         this.male = true;
         this.female = false;
@@ -254,6 +256,7 @@ export default {
       "deparmentValueSelect",
       "employeeDetail",
       "newEmloyeeCode",
+      "insertOrUpdate",
     ]),
     formatOptionDepartment() {
       const formatValue = this.listDeparment.map((item) => {
@@ -271,9 +274,13 @@ export default {
     // Save modal
     handleSave() {
       if (this.deparmentValueSelect) {
-        this.employee.deparmentId = this.deparmentValueSelect;
+        this.employee.deparmentId = this.deparmentValueSelect; // lay gia tri deparment da chon
       }
-      this.$store.dispatch("insertEmployee", this.employee);
+      if (this.insertOrUpdate) {
+        this.$store.dispatch("insertEmployee", this.employee);
+      } else {
+        this.$store.dispatch("updateEmployee", this.employee);
+      }
       this.Handle_Show_Modal();
       // reset modal
       this.resetModal();

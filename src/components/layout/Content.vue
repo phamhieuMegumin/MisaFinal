@@ -91,11 +91,12 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["Handle_Show_Modal"]),
+    ...mapMutations(["Handle_Show_Modal", "MODE_INSERT"]),
     ...mapActions(["getListEmployee", "getNewEmployeeCode"]),
     handleInsert() {
       this.getNewEmployeeCode();
       this.Handle_Show_Modal();
+      this.MODE_INSERT();
     },
   },
 };

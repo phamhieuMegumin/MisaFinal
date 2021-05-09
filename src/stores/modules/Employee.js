@@ -66,11 +66,12 @@ const actions = {
       commit("HANDLE_SHOW_LOADING", null, { root: true });
       await axios({
         method: "put",
-        url: `https://localhost:44308/api/v1/Employees/${data.EmployeeId}`,
+        url: `https://localhost:44308/api/v1/Employees/${data.employeeId}`,
         data,
       });
       commit("HANDLE_SHOW_LOADING", null, { root: true });
       dispatch("getListEmployee");
+      console.log("Sua thanh cong");
     } catch (error) {
       commit("HANDLE_SHOW_LOADING", null, { root: true });
       console.log(error);

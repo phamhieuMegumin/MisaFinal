@@ -56,22 +56,30 @@ export default {
       return null;
     },
     formatDateOfBirth() {
-      const newDate = new Date(this.employee.dateOfBirth);
-      let strDay = newDate.getDate();
-      let strMonth = newDate.getMonth() + 1;
-      let strYear = newDate.getFullYear();
-      if (strDay < 10) strDay = `0${strDay}`;
-      if (strMonth < 10) strMonth = `0${strMonth}`;
-      return `${strDay}/${strMonth}/${strYear}`;
+      if (this.employee.dateOfBirth) {
+        const newDate = new Date(this.employee.dateOfBirth);
+        let strDay = newDate.getDate();
+        let strMonth = newDate.getMonth() + 1;
+        let strYear = newDate.getFullYear();
+        if (strDay < 10) strDay = `0${strDay}`;
+        if (strMonth < 10) strMonth = `0${strMonth}`;
+        return `${strDay}/${strMonth}/${strYear}`;
+      }
+      return null;
     },
   },
   methods: {
     handleShowSelect() {
       this.isShownFixSelect = !this.isShownFixSelect;
     },
-    ...mapMutations(["Handle_Show_Modal", "Handle_Show_Confirm_Modal"]),
+    ...mapMutations([
+      "Handle_Show_Modal",
+      "Handle_Show_Confirm_Modal",
+      "MODE_UPDATE",
+    ]),
     handleUpdate(employeeId) {
       this.$store.dispatch("getEmployeeInfo", employeeId);
+      this.MODE_UPDATE();
     },
   },
 };
