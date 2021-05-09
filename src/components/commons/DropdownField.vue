@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <label v-if="label">{{ label }}</label>
+    <label v-if="label"
+      >{{ label }}<span v-if="required" class="required"> *</span></label
+    >
     <div class="dropdown-field">
       <input
         type="text"
@@ -35,7 +37,7 @@
 <script>
 import { mapMutations } from "vuex";
 export default {
-  props: ["label", "down", "listOption", "nameField", "value"],
+  props: ["label", "down", "listOption", "nameField", "value", "required"],
   data() {
     return {
       isShowSelect: false,
@@ -162,5 +164,8 @@ label {
   font-size: 12px;
   font-weight: 700;
   margin-bottom: 4px;
+}
+.required {
+  color: red;
 }
 </style>

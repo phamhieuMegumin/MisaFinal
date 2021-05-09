@@ -28,10 +28,20 @@
           <div class="modal-content-left">
             <div class="p-12 group-input">
               <div class="input-code pr-6">
-                <InputField :label="'Mã'" v-model="employee.employeeCode" />
+                <InputField
+                  :label="'Mã'"
+                  v-model="employee.employeeCode"
+                  :required="true"
+                  :validateEmployeeCode="validateEmployeeCode"
+                />
               </div>
               <div class="input-name">
-                <InputField :label="'Tên'" v-model="employee.fullName" />
+                <InputField
+                  :label="'Tên'"
+                  v-model="employee.fullName"
+                  :required="true"
+                  :validateEmployeeFullName="validateEmployeeFullName"
+                />
               </div>
             </div>
             <div class="p-12">
@@ -41,6 +51,7 @@
                 :listOption="formatOptionDepartment"
                 nameField="DeparmentField"
                 :value="employee.deparmentId"
+                :required="true"
               />
             </div>
             <div class="p-12">
@@ -232,6 +243,8 @@ export default {
         bankName: "",
         bankBranch: "",
       },
+      validateEmployeeCode: false,
+      validateEmployeeFullName: false,
     };
   },
   watch: {
@@ -247,6 +260,16 @@ export default {
         this.male = false;
         this.female = true;
       }
+    },
+    "employee.employeeCode"() {
+      if (this.employee.employeeCode.length == 0) {
+        this.validateEmployeeCode = true;
+      } else this.validateEmployeeCode = false;
+    },
+    "employee.fullName"() {
+      if (this.employee.fullName.length == 0) {
+        this.validateEmployeeFullName = true;
+      } else this.validateEmployeeFullName = false;
     },
   },
   computed: {
@@ -273,17 +296,21 @@ export default {
     ...mapMutations(["Handle_Show_Modal"]),
     // Save modal
     handleSave() {
-      if (this.deparmentValueSelect) {
-        this.employee.deparmentId = this.deparmentValueSelect; // lay gia tri deparment da chon
-      }
-      if (this.insertOrUpdate) {
-        this.$store.dispatch("insertEmployee", this.employee);
+      if (this.employee.employeeCode.length === 0) {
+        this.validateEmployeeCode = true;
       } else {
-        this.$store.dispatch("updateEmployee", this.employee);
+        if (this.deparmentValueSelect) {
+          this.employee.deparmentId = this.deparmentValueSelect; // lay gia tri deparment da chon
+        }
+        if (this.insertOrUpdate) {
+          this.$store.dispatch("insertEmployee", this.employee);
+        } else {
+          this.$store.dispatch("updateEmployee", this.employee);
+        }
+        this.Handle_Show_Modal();
+        // reset modal
+        this.resetModal();
       }
-      this.Handle_Show_Modal();
-      // reset modal
-      this.resetModal();
     },
     resetModal() {
       this.employee = {
@@ -308,6 +335,8 @@ export default {
     closeModal() {
       this.Handle_Show_Modal();
       this.resetModal();
+      this.validateEmployeeCode = false;
+      this.validateEmployeeFullName = false;
     },
     // format date
     formatDate(date) {

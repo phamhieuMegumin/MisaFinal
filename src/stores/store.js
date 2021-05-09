@@ -18,10 +18,17 @@ const storeData = {
   state: {
     employeeDetail: null,
     newEmloyeeCode: null,
+    deleteMode: false,
   },
   getters: {
     employeeDetail: (state) => state.employeeDetail,
     newEmloyeeCode: (state) => state.newEmloyeeCode,
+    deleteMode: (state) => state.deleteMode,
+  },
+  mutations: {
+    DELETE_MODE(state) {
+      state.deleteMode = !state.deleteMode;
+    },
   },
 };
 const store = new Vuex.Store(storeData);

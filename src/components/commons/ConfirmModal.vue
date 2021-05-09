@@ -6,7 +6,9 @@
         <div class="logo-message"></div>
         <div class="modal-message">
           <p>
-            Bạn có thực sự muốn xóa Nhân viên <span> {{ test }}</span> không?
+            Bạn có thực sự muốn xóa Nhân viên
+            <span> {{ employeeCode }}</span>
+            không?
           </p>
         </div>
       </div>
@@ -15,27 +17,41 @@
         <div @click="Handle_Show_Confirm_Modal">
           <Button :content="'Không'" :btnWhite="true" />
         </div>
-        <Button :content="'Có'" />
+        <div @click="handleDelete">
+          <Button :content="'Có'" />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 import Button from "./Button.vue";
 export default {
   components: { Button },
+  mounted() {
+    this.$store.watch(
+      (state) => state.deleteMode,
+      () => {
+        this.employeeCode = `<${this.employeeDelete.employeeCode}>`;
+      }
+    );
+  },
   data() {
     return {
-      test: "<NV00001>",
+      employeeCode: "",
     };
   },
   computed: {
-    ...mapGetters(["isShowConfirmModal"]),
+    ...mapGetters(["isShowConfirmModal", "employeeDelete"]),
   },
   methods: {
     ...mapMutations(["Handle_Show_Confirm_Modal"]),
+    ...mapActions(["deleteEmployee"]),
+    handleDelete() {
+      this.deleteEmployee();
+    },
   },
 };
 </script>

@@ -1,9 +1,11 @@
 import axios from "axios";
 const state = {
   listEmployee: [],
+  employeeDelete: null,
 };
 const getters = {
   listEmployee: (state) => state.listEmployee,
+  employeeDelete: (state) => state.employeeDelete,
 };
 const mutations = {
   GET_LIST_EMPLOYEE(state, data) {
@@ -14,6 +16,9 @@ const mutations = {
   },
   GET_NEW_EMPLOYEE_CODE(state, data) {
     this.state.newEmloyeeCode = data;
+  },
+  GET_DELETE_EMPLOYEE(state, data) {
+    state.employeeDelete = data;
   },
 };
 const actions = {
@@ -77,6 +82,7 @@ const actions = {
       console.log(error);
     }
   },
+  // Get new code
   async getNewEmployeeCode({ commit }) {
     try {
       commit("HANDLE_SHOW_LOADING", null, { root: true });
@@ -85,6 +91,22 @@ const actions = {
       );
       commit("HANDLE_SHOW_LOADING", null, { root: true });
       commit("GET_NEW_EMPLOYEE_CODE", data.data);
+    } catch (error) {
+      commit("HANDLE_SHOW_LOADING", null, { root: true });
+      console.log(error);
+    }
+  },
+  // Delete employee
+  async deleteEmployee({ commit, dispatch, state }) {
+    try {
+      commit("HANDLE_SHOW_LOADING", null, { root: true });
+      await axios.delete(
+        `https://localhost:44308/api/v1/Employees/${state.employeeDelete.employeeId}`
+      );
+      commit("HANDLE_SHOW_LOADING", null, { root: true });
+      commit("Handle_Show_Confirm_Modal", null, { root: true });
+      dispatch("getListEmployee");
+      console.log("Xoa thanh cong");
     } catch (error) {
       commit("HANDLE_SHOW_LOADING", null, { root: true });
       console.log(error);

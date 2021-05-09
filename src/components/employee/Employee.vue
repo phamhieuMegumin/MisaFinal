@@ -20,7 +20,10 @@
           <div class="dropdown-icon"></div>
           <div v-if="isShownFixSelect" class="list-select">
             <div class="list-select-item">Nhân bản</div>
-            <div class="list-select-item" @click="Handle_Show_Confirm_Modal">
+            <div
+              class="list-select-item"
+              @click="handleDelete(employee.employeeId, employee.employeeCode)"
+            >
               Xóa
             </div>
             <div class="list-select-item">Ngừng sử dụng</div>
@@ -76,10 +79,16 @@ export default {
       "Handle_Show_Modal",
       "Handle_Show_Confirm_Modal",
       "MODE_UPDATE",
+      "DELETE_MODE",
     ]),
     handleUpdate(employeeId) {
       this.$store.dispatch("getEmployeeInfo", employeeId);
       this.MODE_UPDATE();
+    },
+    handleDelete(employeeId, employeeCode) {
+      this.Handle_Show_Confirm_Modal();
+      this.DELETE_MODE();
+      this.$store.commit("GET_DELETE_EMPLOYEE", { employeeId, employeeCode });
     },
   },
 };
