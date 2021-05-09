@@ -187,6 +187,15 @@ export default {
     this.$store.watch(
       (state) => state.employeeDetail,
       () => {
+        // format date
+        if (this.employeeDetail.dateOfBirth) {
+          const newdate = this.formatDate(this.employeeDetail.dateOfBirth);
+          this.employeeDetail.dateOfBirth = newdate;
+        }
+        if (this.employeeDetail.identityDate) {
+          const newDate = this.formatDate(this.employeeDetail.identityDate);
+          this.employeeDetail.identityDate = newDate;
+        }
         this.employee = { ...this.employeeDetail };
       }
     );
@@ -284,6 +293,16 @@ export default {
     closeModal() {
       this.Handle_Show_Modal();
       this.resetModal();
+    },
+    // format date
+    formatDate(date) {
+      const newDate = new Date(date);
+      let strDay = newDate.getDate();
+      let strMonth = newDate.getMonth() + 1;
+      let strYear = newDate.getFullYear();
+      if (strDay < 10) strDay = `0${strDay}`;
+      if (strMonth < 10) strMonth = `0${strMonth}`;
+      return `${strYear}-${strMonth}-${strDay}`;
     },
   },
   components: { CheckboxField, InputField, DropdownField, Button },
