@@ -32,18 +32,31 @@
               <DropdownField :listOption="listOption" nameField="ItemPerPage" />
             </div>
             <div class="paginations">
-              <div class="pag-btn prev-btn">Trước</div>
+              <div
+                @click="handlePrev"
+                class="pag-btn prev-btn"
+                :class="currentPage > 1 ? 'active' : ''"
+              >
+                Trước
+              </div>
               <div class="list-btn-pagination">
                 <div
                   v-for="(item, index) in totalPagination"
                   :key="index"
                   class="pag-btn btn-pagination"
                   @click="handlePagination(index + 1)"
+                  :class="currentPage === index + 1 ? 'active' : ''"
                 >
                   {{ index + 1 }}
                 </div>
               </div>
-              <div class="pag-btn next-btn">Sau</div>
+              <div
+                @click="handleNext"
+                class="pag-btn next-btn"
+                :class="[currentPage < totalPagination ? 'active' : '']"
+              >
+                Sau
+              </div>
             </div>
           </div>
         </div>
@@ -100,7 +113,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["totalEmployee", "totalPagination"]),
+    ...mapGetters([
+      "totalEmployee",
+      "totalPagination",
+      "currentPage",
+      "itemPerPage",
+    ]),
   },
   methods: {
     ...mapMutations(["Handle_Show_Modal", "MODE_INSERT"]),
@@ -115,15 +133,41 @@ export default {
       this.MODE_INSERT();
     },
     handlePagination(pageNum) {
-      console.log(pageNum);
       const data = {
         pageInt: pageNum,
-        pageSize: 20,
+        pageSize: this.itemPerPage,
       };
       this.$store.dispatch(
         "getEmployeeByPagination",
         queryString.stringify(data)
       );
+      this.$store.commit("CHANGE_CURRENT_PAGE", pageNum);
+    },
+    handlePrev() {
+      if (this.currentPage > 1) {
+        this.$store.commit("CHANGE_CURRENT_PAGE", this.currentPage - 1);
+        const data = {
+          pageInt: this.currentPage,
+          pageSize: this.itemPerPage,
+        };
+        this.$store.dispatch(
+          "getEmployeeByPagination",
+          queryString.stringify(data)
+        );
+      }
+    },
+    handleNext() {
+      if (this.currentPage < this.totalPagination) {
+        this.$store.commit("CHANGE_CURRENT_PAGE", this.currentPage + 1);
+        const data = {
+          pageInt: this.currentPage,
+          pageSize: this.itemPerPage,
+        };
+        this.$store.dispatch(
+          "getEmployeeByPagination",
+          queryString.stringify(data)
+        );
+      }
     },
   },
 };
@@ -218,19 +262,26 @@ export default {
   cursor: pointer;
 }
 .btn-pagination {
+  padding: 0 6.5px;
+}
+.btn-pagination.active {
   border: 1px solid #e0e0e0;
   font-weight: 700;
-  padding: 0 6.5px;
 }
 .next-btn,
 .prev-btn {
   color: #9e9e9e;
   cursor: default;
+  user-select: none;
 }
 .total-value {
   font-weight: 700;
 }
 .list-btn-pagination {
   display: flex;
+}
+.pag-btn.active {
+  color: #111;
+  cursor: pointer;
 }
 </style>

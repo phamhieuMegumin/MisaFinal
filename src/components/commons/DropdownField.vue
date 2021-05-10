@@ -34,6 +34,7 @@
           v-for="option in listOption"
           :key="option.optionId"
           class="list-item"
+          :class="selectValue == option.value ? 'active' : ''"
           @click="getSelectValue(option.optionContent, option.value)"
         >
           {{ option.optionContent }}
@@ -48,6 +49,7 @@
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
+import queryString from "query-string";
 export default {
   props: [
     "label",
@@ -58,11 +60,16 @@ export default {
     "required",
     "validateDeparment",
   ],
+  created() {
+    if (this.nameField == "ItemPerPage") {
+      this.currentValue = this.listOption[1].optionContent;
+    }
+  },
   mounted() {
     this.$store.watch(
       (state) => state.closeModalReset,
       () => {
-        if (this.closeModalReset) {
+        if (this.closeModalReset && this.nameField == "DeparmentField") {
           this.currentValue = "";
         }
       }
@@ -71,14 +78,20 @@ export default {
   data() {
     return {
       isShowSelect: false,
-      currentValue: "",
+      currentValue: "", // value content
       validate: false,
       showMessage: false,
       errorMessage: "",
+      selectValue: "",
     };
   },
   computed: {
-    ...mapGetters(["closeModalReset"]),
+    ...mapGetters([
+      "closeModalReset",
+      "currentPage",
+      "itemPerPage",
+      "totalEmployee",
+    ]),
   },
   watch: {
     value() {
@@ -103,8 +116,18 @@ export default {
     },
     getSelectValue(content, value) {
       this.currentValue = content;
+      this.selectValue = value;
       if (this.nameField === "ItemPerPage") {
         this.$store.commit("CHANGE_ITEM_PER_PAGE", value);
+        const data = {
+          pageInt: this.currentPage,
+          pageSize: this.itemPerPage,
+        };
+        this.$store.dispatch(
+          "getEmployeeByPagination",
+          queryString.stringify(data)
+        );
+        this.$store.commit("GET_TOTAL_PAGINATION", this.totalEmployee);
       }
       if (this.nameField === "DeparmentField") {
         this.$store.commit("DEPARTMENT_SELECT_VALUE", value);

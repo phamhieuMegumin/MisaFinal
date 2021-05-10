@@ -5,11 +5,13 @@ const state = {
   itemPerPage: 20,
   listEmployeeByPagination: null,
   totalPagination: 0,
+  currentPage: 1,
 };
 const getters = {
   itemPerPage: (state) => state.itemPerPage,
   listEmployeeByPagination: (state) => state.listEmployeeByPagination,
   totalPagination: (state) => state.totalPagination,
+  currentPage: (state) => state.currentPage,
 };
 const mutations = {
   CHANGE_ITEM_PER_PAGE(state, data) {
@@ -20,6 +22,9 @@ const mutations = {
   },
   GET_TOTAL_PAGINATION(state, data) {
     state.totalPagination = Math.ceil(data / state.itemPerPage);
+  },
+  CHANGE_CURRENT_PAGE(state, data) {
+    state.currentPage = data;
   },
 };
 const actions = {
