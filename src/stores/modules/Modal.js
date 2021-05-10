@@ -14,8 +14,12 @@ const mutations = {
     if (state.isShowModal == false) {
       this.state.employeeDetail = null;
       this.state.newEmloyeeCode = null;
+      this.state.closeModalReset = true;
+    } else {
+      this.state.closeModalReset = false;
     }
   },
+
   Handle_Show_Confirm_Modal(state) {
     state.isShowConfirmModal = !state.isShowConfirmModal;
   },

@@ -200,7 +200,8 @@ export default {
     this.$store.watch(
       (state) => state.newEmloyeeCode,
       () => {
-        this.employee.employeeCode = this.newEmloyeeCode;
+        if (this.newEmloyeeCode)
+          this.employee.employeeCode = this.newEmloyeeCode;
       }
     );
     this.$store.watch(
@@ -216,9 +217,8 @@ export default {
             const newDate = this.formatDate(this.employeeDetail.identityDate);
             this.employeeDetail.identityDate = newDate;
           }
+          this.employee = { ...this.employeeDetail };
         }
-
-        this.employee = { ...this.employeeDetail };
       }
     );
     this.$store.watch(
@@ -270,16 +270,19 @@ export default {
       }
     },
     "employee.employeeCode"() {
-      if (this.employee.employeeCode !== null) {
+      console.log(this.employee.employeeCode);
+      if (this.employee.employeeCode !== null && !this.closeModalReset) {
         if (this.employee.employeeCode.length == 0) {
           this.validateEmployeeCode = true;
         } else this.validateEmployeeCode = false;
       }
     },
     "employee.fullName"() {
-      if (this.employee.fullName.length == 0) {
-        this.validateEmployeeFullName = true;
-      } else this.validateEmployeeFullName = false;
+      if (!this.closeModalReset) {
+        if (this.employee.fullName.length == 0) {
+          this.validateEmployeeFullName = true;
+        } else this.validateEmployeeFullName = false;
+      }
     },
   },
   computed: {
@@ -290,6 +293,7 @@ export default {
       "employeeDetail",
       "newEmloyeeCode",
       "insertOrUpdate",
+      "closeModalReset",
     ]),
     formatOptionDepartment() {
       const formatValue = this.listDeparment.map((item) => {

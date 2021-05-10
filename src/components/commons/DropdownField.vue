@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 export default {
   props: [
     "label",
@@ -58,6 +58,16 @@ export default {
     "required",
     "validateDeparment",
   ],
+  mounted() {
+    this.$store.watch(
+      (state) => state.closeModalReset,
+      () => {
+        if (this.closeModalReset) {
+          this.currentValue = "";
+        }
+      }
+    );
+  },
   data() {
     return {
       isShowSelect: false,
@@ -66,6 +76,9 @@ export default {
       showMessage: false,
       errorMessage: "",
     };
+  },
+  computed: {
+    ...mapGetters(["closeModalReset"]),
   },
   watch: {
     value() {
