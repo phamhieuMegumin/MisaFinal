@@ -52,6 +52,7 @@
                 nameField="DeparmentField"
                 :value="employee.deparmentId"
                 :required="true"
+                :validateDeparment="validateDeparment"
               />
             </div>
             <div class="p-12">
@@ -220,6 +221,12 @@ export default {
         this.employee = { ...this.employeeDetail };
       }
     );
+    this.$store.watch(
+      (state) => state.deparmentValueSelect,
+      () => {
+        if (this.deparmentValueSelect) this.validateDeparment = false;
+      }
+    );
   },
   data() {
     return {
@@ -245,6 +252,7 @@ export default {
       },
       validateEmployeeCode: false,
       validateEmployeeFullName: false,
+      validateDeparment: false,
     };
   },
   watch: {
@@ -262,9 +270,11 @@ export default {
       }
     },
     "employee.employeeCode"() {
-      if (this.employee.employeeCode.length == 0) {
-        this.validateEmployeeCode = true;
-      } else this.validateEmployeeCode = false;
+      if (this.employee.employeeCode !== null) {
+        if (this.employee.employeeCode.length == 0) {
+          this.validateEmployeeCode = true;
+        } else this.validateEmployeeCode = false;
+      }
     },
     "employee.fullName"() {
       if (this.employee.fullName.length == 0) {
@@ -296,9 +306,7 @@ export default {
     ...mapMutations(["Handle_Show_Modal"]),
     // Save modal
     handleSave() {
-      if (this.employee.employeeCode.length === 0) {
-        this.validateEmployeeCode = true;
-      } else {
+      if (this.validate()) {
         if (this.deparmentValueSelect) {
           this.employee.deparmentId = this.deparmentValueSelect; // lay gia tri deparment da chon
         }
@@ -308,9 +316,30 @@ export default {
           this.$store.dispatch("updateEmployee", this.employee);
         }
         this.Handle_Show_Modal();
-        // reset modal
-        this.resetModal();
+        // reset validate
+        (this.validateEmployeeCode = false),
+          (this.validateEmployeeFullName = false),
+          (this.validateDeparment = false),
+          // reset modal
+          this.resetModal();
       }
+    },
+    validate() {
+      let isCheck = true;
+      if (this.employee.employeeCode.length === 0) {
+        this.validateEmployeeCode = true;
+        isCheck = false;
+      }
+      if (this.employee.fullName.length === 0) {
+        this.validateEmployeeFullName = true;
+        isCheck = false;
+      }
+      if (this.deparmentValueSelect.length === 0) {
+        this.validateDeparment = true;
+        isCheck = false;
+      }
+      if (isCheck) return true;
+      return false;
     },
     resetModal() {
       this.employee = {
@@ -337,6 +366,7 @@ export default {
       this.resetModal();
       this.validateEmployeeCode = false;
       this.validateEmployeeFullName = false;
+      this.validateDeparment = false;
     },
     // format date
     formatDate(date) {

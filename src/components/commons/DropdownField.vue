@@ -3,15 +3,24 @@
     <label v-if="label"
       >{{ label }}<span v-if="required" class="required"> *</span></label
     >
-    <div class="dropdown-field">
+    <div
+      class="dropdown-field"
+      @mouseover="handelError"
+      @mouseleave="handleLeave"
+    >
       <input
         type="text"
         class="value"
         readonly="true"
         :value="currentValue"
         autofocus="autofocus"
+        :class="[validate ? 'error' : '']"
       />
-      <div @click="handleShowSelect" class="dropdown-icon-wrapper">
+      <div
+        :class="[validate ? 'error' : '']"
+        @click="handleShowSelect"
+        class="dropdown-icon-wrapper"
+      >
         <div class="dropdown-icon"></div>
       </div>
       <div
@@ -30,6 +39,9 @@
           {{ option.optionContent }}
         </div>
       </div>
+      <div v-if="required && showMessage && validate" class="validateMessage">
+        <p>{{ errorMessage }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -37,11 +49,22 @@
 <script>
 import { mapMutations } from "vuex";
 export default {
-  props: ["label", "down", "listOption", "nameField", "value", "required"],
+  props: [
+    "label",
+    "down",
+    "listOption",
+    "nameField",
+    "value",
+    "required",
+    "validateDeparment",
+  ],
   data() {
     return {
       isShowSelect: false,
       currentValue: "",
+      validate: false,
+      showMessage: false,
+      errorMessage: "",
     };
   },
   watch: {
@@ -52,6 +75,12 @@ export default {
           break;
         }
       }
+    },
+    validateDeparment() {
+      if (this.validateDeparment) {
+        this.errorMessage = "Đơn vị không được để trống";
+        this.validate = true;
+      } else this.validate = false;
     },
   },
   methods: {
@@ -68,6 +97,16 @@ export default {
         this.$store.commit("DEPARTMENT_SELECT_VALUE", value);
       }
       this.handleShowSelect();
+    },
+    handelError() {
+      if (this.required && this.validate) {
+        this.showMessage = true;
+      }
+    },
+    handleLeave() {
+      if (this.required && this.validate) {
+        this.showMessage = false;
+      }
     },
   },
 };
@@ -165,7 +204,24 @@ label {
   font-weight: 700;
   margin-bottom: 4px;
 }
+.validateMessage {
+  position: absolute;
+  background: #443e3e;
+  left: 50%;
+  top: 50%;
+  width: 150px;
+  color: #fff;
+  transform: translateX(-50%);
+  user-select: none;
+  padding: 3px 3px;
+}
+.validateMessage p {
+  font-size: 12px;
+}
 .required {
   color: red;
+}
+.error {
+  border-color: red;
 }
 </style>

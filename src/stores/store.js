@@ -19,11 +19,13 @@ const storeData = {
     employeeDetail: null,
     newEmloyeeCode: null,
     deleteMode: false,
+    deparmentValueSelect: "", // deparment value modal
   },
   getters: {
     employeeDetail: (state) => state.employeeDetail,
     newEmloyeeCode: (state) => state.newEmloyeeCode,
     deleteMode: (state) => state.deleteMode,
+    deparmentValueSelect: (state) => state.deparmentValueSelect,
   },
   mutations: {
     DELETE_MODE(state) {

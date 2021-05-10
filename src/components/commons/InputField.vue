@@ -15,7 +15,7 @@
         :class="[required && validate ? 'error' : '']"
       />
       <div v-if="searchField" class="search-icon"></div>
-      <div v-if="required && showMessage" class="validateMessage">
+      <div v-if="required && showMessage && validate" class="validateMessage">
         <p>{{ errorMessage }}</p>
       </div>
     </div>
