@@ -5,20 +5,30 @@
       <div class="modal-content">
         <div class="logo-message"></div>
         <div class="modal-message">
-          <p>
+          <p v-if="type === 'confirm'">
             Bạn có thực sự muốn xóa Nhân viên
-            <span> {{ employeeCode }}</span>
+            <span> {{ confirmEmployeeCode }}</span>
             không?
+          </p>
+          <p v-if="type === 'notify'">
+            Mã nhân viên {{ employeeCodeNotify }} đã tồn tại trong hệ thống, vui
+            lòng kiểm tra lại
           </p>
         </div>
       </div>
       <div class="line"></div>
-      <div class="modal-bottom">
-        <div @click="Handle_Show_Confirm_Modal">
+      <div
+        class="modal-bottom"
+        :class="type === 'notify' ? 'notify-bottom' : ''"
+      >
+        <div v-if="type == 'confirm'" @click="Handle_Show_Confirm_Modal">
           <Button :content="'Không'" :btnWhite="true" />
         </div>
-        <div @click="handleDelete">
+        <div v-if="type === 'confirm'" @click="handleDelete">
           <Button :content="'Có'" />
+        </div>
+        <div class="notify-btn" v-if="type === 'notify'" @click="handleNotify">
+          <Button :content="'Đồng ý'" />
         </div>
       </div>
     </div>
@@ -34,23 +44,45 @@ export default {
     this.$store.watch(
       (state) => state.deleteMode,
       () => {
-        this.employeeCode = `<${this.employeeDelete.employeeCode}>`;
+        this.confirmEmployeeCode = `<${this.employeeDelete.employeeCode}>`;
+      }
+    );
+    this.$store.watch(
+      (state) => state.modalType,
+      () => {
+        this.type = this.modalType;
+      }
+    );
+    this.$store.watch(
+      (state) => state.employeeCode,
+      () => {
+        this.employeeCodeNotify = `<${this.employeeCode}>`;
       }
     );
   },
   data() {
     return {
-      employeeCode: "",
+      confirmEmployeeCode: "",
+      type: "confirm",
+      employeeCodeNotify: "",
     };
   },
   computed: {
-    ...mapGetters(["isShowConfirmModal", "employeeDelete"]),
+    ...mapGetters([
+      "isShowConfirmModal",
+      "employeeDelete",
+      "modalType",
+      "employeeCode",
+    ]),
   },
   methods: {
     ...mapMutations(["Handle_Show_Confirm_Modal"]),
     ...mapActions(["deleteEmployee"]),
     handleDelete() {
       this.deleteEmployee();
+    },
+    handleNotify() {
+      this.Handle_Show_Confirm_Modal();
     },
   },
 };
@@ -103,6 +135,8 @@ export default {
 .logo-message {
   width: 48px;
   height: 48px;
+  min-width: 48px;
+  min-height: 48px;
   background: url("../../assets/img/Sprites.64af8f61.svg") no-repeat -592px -456px;
 }
 .modal-message {
@@ -118,5 +152,8 @@ export default {
 .modal-bottom {
   display: flex;
   justify-content: space-between;
+}
+.modal-bottom.notify-bottom {
+  justify-content: flex-end;
 }
 </style>

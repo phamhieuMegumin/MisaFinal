@@ -30,6 +30,12 @@ const mutations = {
   MODE_UPDATE(state) {
     state.insertOrUpdate = false;
   },
+  MODAL_TYPE_CONFIRM() {
+    this.state.modalType = "confirm";
+  },
+  MODAL_TYPE_NOTIFY() {
+    this.state.modalType = "notify";
+  },
 };
 const actions = {};
 export default {

@@ -21,6 +21,8 @@ const storeData = {
     deleteMode: false,
     deparmentValueSelect: "", // deparment value modal
     closeModalReset: null,
+    modalType: "confirm",
+    employeeCode: null,
   },
   getters: {
     employeeDetail: (state) => state.employeeDetail,
@@ -28,6 +30,8 @@ const storeData = {
     deleteMode: (state) => state.deleteMode,
     deparmentValueSelect: (state) => state.deparmentValueSelect,
     closeModalReset: (state) => state.closeModalReset,
+    modalType: (state) => state.modalType,
+    employeeCode: (state) => state.employeeCode,
   },
   mutations: {
     DELETE_MODE(state) {

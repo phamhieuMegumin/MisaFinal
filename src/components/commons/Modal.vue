@@ -316,8 +316,10 @@ export default {
         }
         if (this.insertOrUpdate) {
           this.$store.dispatch("insertEmployee", this.employee);
+          this.$store.commit("GET_EMPLOYEECODE", this.employee.employeeCode);
         } else {
           this.$store.dispatch("updateEmployee", this.employee);
+          this.$store.commit("GET_EMPLOYEECODE", this.employee.employeeCode);
         }
         this.Handle_Show_Modal();
         // reset validate
@@ -338,7 +340,10 @@ export default {
         this.validateEmployeeFullName = true;
         isCheck = false;
       }
-      if (this.deparmentValueSelect.length === 0) {
+      if (
+        this.deparmentValueSelect.length === 0 &&
+        this.employee.deparmentId.length === 0
+      ) {
         this.validateDeparment = true;
         isCheck = false;
       }

@@ -80,6 +80,7 @@ export default {
       "Handle_Show_Confirm_Modal",
       "MODE_UPDATE",
       "DELETE_MODE",
+      "MODAL_TYPE_CONFIRM",
     ]),
     handleUpdate(employeeId) {
       this.$store.dispatch("getEmployeeInfo", employeeId);
@@ -88,6 +89,7 @@ export default {
     handleDelete(employeeId, employeeCode) {
       this.Handle_Show_Confirm_Modal();
       this.DELETE_MODE();
+      this.MODAL_TYPE_CONFIRM();
       this.$store.commit("GET_DELETE_EMPLOYEE", { employeeId, employeeCode });
     },
   },

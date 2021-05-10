@@ -20,6 +20,9 @@ const mutations = {
   GET_DELETE_EMPLOYEE(state, data) {
     state.employeeDelete = data;
   },
+  GET_EMPLOYEECODE(state, data) {
+    this.state.employeeCode = data;
+  },
 };
 const actions = {
   async getListEmployee({ commit }) {
@@ -62,6 +65,8 @@ const actions = {
       console.log("Them thanh cong");
     } catch (error) {
       commit("HANDLE_SHOW_LOADING", null, { root: true });
+      commit("MODAL_TYPE_NOTIFY", null, { root: true });
+      commit("Handle_Show_Confirm_Modal", null, { root: true });
       console.log(error);
     }
   },
