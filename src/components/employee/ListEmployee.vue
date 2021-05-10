@@ -54,7 +54,7 @@
       </thead>
       <tbody>
         <Employee
-          v-for="(employee, index) in listEmployee"
+          v-for="(employee, index) in listEmployeeByPagination"
           :key="index"
           :employee="employee"
         />
@@ -69,10 +69,14 @@ import CheckboxField from "../commons/CheckboxField";
 import Modal from "../commons/Modal.vue";
 import ConfirmModal from "../commons/ConfirmModal";
 import { mapActions, mapGetters } from "vuex";
+import queryString from "query-string";
 export default {
   created() {
-    this.getListEmployee();
+    this.getEmployeeByPagination(
+      queryString.stringify({ pageInt: 1, pageSize: 20 })
+    );
     this.getListDeparment();
+    this.getListEmployee();
   },
   components: {
     Employee,
@@ -81,10 +85,14 @@ export default {
     ConfirmModal,
   },
   computed: {
-    ...mapGetters(["listEmployee"]),
+    ...mapGetters(["listEmployee", "listEmployeeByPagination"]),
   },
   methods: {
-    ...mapActions(["getListEmployee", "getListDeparment"]),
+    ...mapActions([
+      "getListEmployee",
+      "getListDeparment",
+      "getEmployeeByPagination",
+    ]),
   },
 };
 </script>

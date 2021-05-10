@@ -2,10 +2,12 @@ import axios from "axios";
 const state = {
   listEmployee: [],
   employeeDelete: null,
+  totalEmployee: null,
 };
 const getters = {
   listEmployee: (state) => state.listEmployee,
   employeeDelete: (state) => state.employeeDelete,
+  totalEmployee: (state) => state.totalEmployee,
 };
 const mutations = {
   GET_LIST_EMPLOYEE(state, data) {
@@ -23,6 +25,9 @@ const mutations = {
   GET_EMPLOYEECODE(state, data) {
     this.state.employeeCode = data;
   },
+  GET_TOTAL_EMPLOYEE(state, data) {
+    state.totalEmployee = data;
+  },
 };
 const actions = {
   async getListEmployee({ commit }) {
@@ -30,7 +35,9 @@ const actions = {
       commit("HANDLE_SHOW_LOADING", null, { root: true });
       const data = await axios.get("https://localhost:44308/api/v1/Employees");
       commit("GET_LIST_EMPLOYEE", data.data);
-      commit("HANDLE_SHOW_LOADING");
+      commit("GET_TOTAL_EMPLOYEE", data.data.length);
+      commit("GET_TOTAL_PAGINATION", data.data.length);
+      commit("HANDLE_SHOW_LOADING", null, { root: true });
     } catch (error) {
       commit("HANDLE_SHOW_LOADING", null, { root: true });
       console.log(error);

@@ -24,7 +24,8 @@
         <ListEmployee />
         <div class="pagination-container">
           <div class="total-item">
-            Tổng số : <span class="total-value">1</span> bản ghi
+            Tổng số : <span class="total-value">{{ totalEmployee }}</span> bản
+            ghi
           </div>
           <div class="pagination-wrapper">
             <div class="dropdown-pagiantion">
@@ -33,7 +34,14 @@
             <div class="paginations">
               <div class="pag-btn prev-btn">Trước</div>
               <div class="list-btn-pagination">
-                <div class="pag-btn btn-pagination">1</div>
+                <div
+                  v-for="(item, index) in totalPagination"
+                  :key="index"
+                  class="pag-btn btn-pagination"
+                  @click="handlePagination(index + 1)"
+                >
+                  {{ index + 1 }}
+                </div>
               </div>
               <div class="pag-btn next-btn">Sau</div>
             </div>
@@ -51,7 +59,8 @@ import Button from "../commons/Button";
 import ListEmployee from "../employee/ListEmployee";
 import InputField from "../commons/InputField";
 import DropdownField from "../commons/DropdownField";
-import { mapActions, mapMutations } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
+import queryString from "query-string";
 export default {
   components: {
     Button,
@@ -90,13 +99,31 @@ export default {
       ],
     };
   },
+  computed: {
+    ...mapGetters(["totalEmployee", "totalPagination"]),
+  },
   methods: {
     ...mapMutations(["Handle_Show_Modal", "MODE_INSERT"]),
-    ...mapActions(["getListEmployee", "getNewEmployeeCode"]),
+    ...mapActions([
+      "getListEmployee",
+      "getNewEmployeeCode",
+      "getEmployeeByPagination",
+    ]),
     handleInsert() {
       this.getNewEmployeeCode();
       this.Handle_Show_Modal();
       this.MODE_INSERT();
+    },
+    handlePagination(pageNum) {
+      console.log(pageNum);
+      const data = {
+        pageInt: pageNum,
+        pageSize: 20,
+      };
+      this.$store.dispatch(
+        "getEmployeeByPagination",
+        queryString.stringify(data)
+      );
     },
   },
 };
@@ -202,5 +229,8 @@ export default {
 }
 .total-value {
   font-weight: 700;
+}
+.list-btn-pagination {
+  display: flex;
 }
 </style>
