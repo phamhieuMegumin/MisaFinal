@@ -86,6 +86,26 @@ const actions = {
       commit("HANDLE_SHOW_LOADING", null, { root: true });
     }
   },
+  // Add employee
+  async insertEmployee({ commit, dispatch }, data) {
+    try {
+      commit("HANDLE_SHOW_LOADING", null, { root: true });
+      await axios({
+        method: "post",
+        url: "https://localhost:44308/api/v1/Employees",
+        data,
+      });
+      commit("HANDLE_SHOW_LOADING", null, { root: true });
+      dispatch("getListEmployee");
+      dispatch("getEmployeeByPaginationReload");
+      console.log("Them thanh cong");
+    } catch (error) {
+      commit("HANDLE_SHOW_LOADING", null, { root: true });
+      commit("MODAL_TYPE_NOTIFY", null, { root: true });
+      commit("Handle_Show_Confirm_Modal", null, { root: true });
+      console.log(error);
+    }
+  },
   // Update employee
   async updateEmployee({ commit, dispatch }, data) {
     try {
