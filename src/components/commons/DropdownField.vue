@@ -119,6 +119,7 @@ export default {
       this.selectValue = value;
       if (this.nameField === "ItemPerPage") {
         this.$store.commit("CHANGE_ITEM_PER_PAGE", value);
+        this.$store.commit("CHANGE_PAGE_SIZE_RELOAD", value);
         const data = {
           pageInt: this.currentPage,
           pageSize: this.itemPerPage,

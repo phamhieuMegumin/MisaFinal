@@ -15,7 +15,7 @@
             :searchField="true"
           />
         </div>
-        <div @click="getListEmployee" class="refresh-btn">
+        <div @click="handleRefresh" class="refresh-btn">
           <div class="refresh-icon"></div>
         </div>
       </div>
@@ -44,10 +44,10 @@
                   v-for="(item, index) in totalPagination"
                   :key="index"
                   class="pag-btn btn-pagination"
-                  @click="handlePagination(index + 1)"
-                  :class="currentPage === index + 1 ? 'active' : ''"
+                  @click="handlePagination(item)"
+                  :class="currentPage === item ? 'active' : ''"
                 >
-                  {{ index + 1 }}
+                  {{ item }}
                 </div>
               </div>
               <div
@@ -110,6 +110,9 @@ export default {
           value: 100,
         },
       ],
+      pageNumberLimit: 5,
+      minPageNumerLimit: 0,
+      maxPageNumerLimit: 5,
     };
   },
   computed: {
@@ -142,10 +145,12 @@ export default {
         queryString.stringify(data)
       );
       this.$store.commit("CHANGE_CURRENT_PAGE", pageNum);
+      this.$store.commit("CHANGE_CURRENT_PAGE_RELOAD", pageNum);
     },
     handlePrev() {
       if (this.currentPage > 1) {
         this.$store.commit("CHANGE_CURRENT_PAGE", this.currentPage - 1);
+        this.$store.commit("CHANGE_CURRENT_PAGE_RELOAD", this.currentPage - 1);
         const data = {
           pageInt: this.currentPage,
           pageSize: this.itemPerPage,
@@ -159,6 +164,7 @@ export default {
     handleNext() {
       if (this.currentPage < this.totalPagination) {
         this.$store.commit("CHANGE_CURRENT_PAGE", this.currentPage + 1);
+        this.$store.commit("CHANGE_CURRENT_PAGE_RELOAD", this.currentPage + 1);
         const data = {
           pageInt: this.currentPage,
           pageSize: this.itemPerPage,
@@ -168,6 +174,16 @@ export default {
           queryString.stringify(data)
         );
       }
+    },
+    handleRefresh() {
+      const data = {
+        pageInt: this.currentPage,
+        pageSize: this.itemPerPage,
+      };
+      this.$store.dispatch(
+        "getEmployeeByPagination",
+        queryString.stringify(data)
+      );
     },
   },
 };
@@ -193,7 +209,7 @@ export default {
 .title {
   display: block;
   font-size: 24px;
-  font-weight: 700;
+  font-family: "notosans-bold";
   color: #111;
 }
 .main-content {

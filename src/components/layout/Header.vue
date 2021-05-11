@@ -66,7 +66,7 @@ export default {};
   text-transform: uppercase;
   font-size: 14px;
   color: #111;
-  font-weight: 600;
+  font-family: "notosans-bold";
 }
 
 .header-logo {

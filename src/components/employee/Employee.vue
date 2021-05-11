@@ -18,16 +18,16 @@
         <span @click="handleUpdate(employee.employeeId)">Sửa</span>
         <div @click="handleShowSelect" class="choose-btn">
           <div class="dropdown-icon"></div>
-          <div v-if="isShownFixSelect" class="list-select">
-            <div class="list-select-item">Nhân bản</div>
-            <div
-              class="list-select-item"
-              @click="handleDelete(employee.employeeId, employee.employeeCode)"
-            >
-              Xóa
-            </div>
-            <div class="list-select-item">Ngừng sử dụng</div>
+        </div>
+        <div v-if="isShownFixSelect" class="list-select">
+          <div class="list-select-item">Nhân bản</div>
+          <div
+            class="list-select-item"
+            @click="handleDelete(employee.employeeId, employee.employeeCode)"
+          >
+            Xóa
           </div>
+          <div class="list-select-item">Ngừng sử dụng</div>
         </div>
       </div>
       <div class="line"></div>
@@ -135,7 +135,7 @@ tr:hover td {
   cursor: pointer;
 }
 .fix-container span {
-  font-weight: 550;
+  font-family: notosans-semibold;
   color: #0075cb;
   padding: 6px 0 6px 16px;
 }

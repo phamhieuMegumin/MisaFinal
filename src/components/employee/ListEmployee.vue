@@ -110,7 +110,7 @@ export default {
   padding: 5px 10px;
   text-transform: uppercase;
   font-size: 12px;
-  font-weight: 600;
+  font-family: "notosans-bold";
   position: sticky;
   background: #eceef1;
   top: 0;

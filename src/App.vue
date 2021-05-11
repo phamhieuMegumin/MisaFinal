@@ -36,4 +36,12 @@ export default {
   font-family: "notosans-regular";
   src: url("./assets/fonts/notosans-regular.2cb88a13.woff2") format("opentype");
 }
+@font-face {
+  font-family: "notosans-semibold";
+  src: url("./assets/fonts/notosans-semibold.df3e6dc4.woff2") format("opentype");
+}
+@font-face {
+  font-family: "notosans-bold";
+  src: url("./assets/fonts/notosans-bold.3ede5aff.woff2") format("opentype");
+}
 </style>
